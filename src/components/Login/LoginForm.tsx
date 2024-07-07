@@ -48,8 +48,7 @@ export default function LoginForm() {
                     <FormItem>
                       <FormControl>
                         <Input
-                          placeholder="green@gmail.com"
-                          required
+                          placeholder="Email"
                           className=" h-14"
                           {...field}
                         />
@@ -71,13 +70,12 @@ export default function LoginForm() {
                         <div className="relative">
                           <Input
                             type={showPassword ? "text" : "password"}
-                            required
                             className=" h-14"
                             placeholder="Password"
                             {...field}
                           />
                           <button
-                          type="button"
+                            type="button"
                             onClick={() => setShowPassword(!showPassword)}
                             className="absolute inset-y-0 end-2"
                           >
