@@ -11,10 +11,11 @@ import {
 import formSchema from "@/schemas/RegisterSchema";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-
+import { useToast } from "../ui/use-toast";
 // TODO: add hide password
 
 export default function RegisterDeskForm() {
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -28,7 +29,23 @@ export default function RegisterDeskForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // REQUEST API
-    console.log(values);
+    try {
+      console.log(values);
+      toast({
+        title: "Inscription réussie",
+        description: "Vous êtes inscrit avec succès",
+        className: "bg-green-500 text-white font-Outfit py-3 space-y-0 gap-0", 
+      });
+    } catch (err) {
+      console.log(err);
+      toast({
+        title: "Erreur",
+        description: "Une erreur s'est produite lors de l'inscription",
+        className: " text-white font-Outfit py-3 space-y-0 gap-0", 
+        variant:"destructive"
+
+      });
+    }
   }
   return (
     <Form {...form}>
