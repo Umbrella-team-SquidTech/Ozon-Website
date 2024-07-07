@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-
+import { useToast } from "@/components/ui/use-toast";
 import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -17,6 +17,7 @@ import formSchema from "@/schemas/LoginSchema";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 export default function LoginForm() {
+  const { toast } = useToast();
   const [showPassword, setShowPassword] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -28,7 +29,23 @@ export default function LoginForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // REQUEST API
-    console.log(values);
+    try {
+      console.log(values);
+      toast({
+        title: "Inscription réussie",
+        description: "Vous êtes inscrit avec succès",
+        className: "bg-green-500 text-white font-Outfit py-3 space-y-0 gap-0", 
+      });
+    } catch (err) {
+      console.log(err);
+      toast({
+        title: "Erreur",
+        description: "Une erreur s'est produite lors de l'inscription",
+        className: " text-white font-Outfit py-3 space-y-0 gap-0", 
+        variant:"destructive"
+
+      });
+    }
   }
 
   return (
