@@ -31,7 +31,7 @@ export default function LoginForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <div>
-          <div className="mx-auto max-w-md space-y-6">
+          <div className=" space-y-6">
             <div className="space-y-4">
               <div className="space-y-2">
                 <FormField
