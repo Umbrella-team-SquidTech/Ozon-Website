@@ -42,7 +42,6 @@ export default function LoginForm() {
                       <FormControl>
                         <Input
                           placeholder="Email"
-                          required
                           className=" h-14"
                           {...field}
                         />
@@ -61,7 +60,6 @@ export default function LoginForm() {
                       <FormControl>
                         <Input
                           type="password"
-                          required
                           className=" h-14"
                           placeholder="Password"
                           {...field}
