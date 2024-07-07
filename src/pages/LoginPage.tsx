@@ -3,18 +3,13 @@ import LoginFooter from "@/components/Login/LoginFooter";
 import LoginHeader from "@/components/Login/LoginHeader";
 export default function LoginPage() {
   return (
-    <>
-    <div className="h-screen w-screen overflow-x-hidden flex flex-items-center justify-center  font-Outfit bg-BgColor">
-      {/* the flex was deleted and the width was set to screen */}
-      <div className="max-h-auto  w-full md:w-[45%] border flex flex-col justify-between rounded-lg py-10 px-6 md:p-16 gap-7">
+    <div className="md:flex h-screen md:h-full justify-center items-center font-Outfit md:py-12 bg-BgColor">
+      <div className="h-full md:max-h-auto   border flex flex-col justify-evenly rounded-lg py-10 px-6 md:p-16 gap-7 w-full  md:w-[45%]">
         <LoginHeader />
         <LoginForm />
         <LoginFooter />
       </div>
     </div>
-    <div className="">
-
-    </div>
-    </>
+    
   );
 }
