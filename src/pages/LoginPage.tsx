@@ -1,9 +1,14 @@
 import LoginForm from "@/components/Login/LoginForm";
-
+import LoginFooter from "@/components/Login/LoginFooter";
+import LoginHeader from "@/components/Login/LoginHeader";
 export default function LoginPage() {
   return (
-    <div>
-      <LoginForm />
+    <div className="h-screen flex justify-center items-center">
+      <div className="h-auto border flex flex-col justify-between rounded-lg w-[45%] p-16 gap-7">
+        <LoginHeader />
+        <LoginForm />
+        <LoginFooter />
+      </div>
     </div>
   );
 }
