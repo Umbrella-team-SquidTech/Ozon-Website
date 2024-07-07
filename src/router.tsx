@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import RecoverPass from "./pages/RecoverPass";
+import ValidateRegisterPage from "./pages/ValidateRegisterPage";
 const Router = createBrowserRouter([
   {
     path: "/",
@@ -18,6 +19,10 @@ const Router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterPage />,
+  },
+  {
+    path: "/account/validate",
+    element: <ValidateRegisterPage />,
   },
   {
     path: "*",
