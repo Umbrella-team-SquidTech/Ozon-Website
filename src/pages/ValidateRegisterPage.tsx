@@ -18,11 +18,8 @@ import {
 
 import { Link } from "react-router-dom";
 
-const FormSchema = z.object({
-  pin: z.string().min(6, {
-    message: "Your one-time password must be 6 characters.",
-  }),
-});
+import FormSchema from "@/schemas/ValidateEmailSchema";
+
 export default function ValidateRegisterPage() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
