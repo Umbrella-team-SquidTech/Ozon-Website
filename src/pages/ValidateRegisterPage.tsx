@@ -84,7 +84,7 @@ export default function ValidateRegisterPage() {
                   )}
                 />
 
-                <Button type="submit" className="w-[80%]">
+                <Button type="submit" className="w-[80%] bg-PrimaryColor hover:bg-SecondaryColor ">
                   Continuer
                 </Button>
               </div>

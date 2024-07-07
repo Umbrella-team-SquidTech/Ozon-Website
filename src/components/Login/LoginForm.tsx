@@ -18,7 +18,6 @@ import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -71,7 +70,7 @@ export default function LoginForm() {
                           <Input
                             type={showPassword ? "text" : "password"}
                             className=" h-14"
-                            placeholder="Password"
+                            placeholder="Mot de passe"
                             {...field}
                           />
                           <button

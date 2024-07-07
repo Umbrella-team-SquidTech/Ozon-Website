@@ -96,7 +96,7 @@ export default function RegisterDeskForm() {
                         <Input
                           type="password"
                           className=" h-14"
-                          placeholder="Password"
+                          placeholder="Mot de passe"
                           {...field}
                         />
                       </FormControl>

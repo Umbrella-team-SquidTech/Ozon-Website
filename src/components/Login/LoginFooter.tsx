@@ -4,13 +4,13 @@ export default function LoginFooter() {
   return (
     <>
     <div className=" hidden  md:flex flex-col items-center gap-10">
-      <div className="flex justify-between items-center w-full">
-        <hr className="w-full h-1 rounded-md bg-[#130E0A1A]" />
-        <p className="w-[26rem] px-2 text-sm text-gray-700 text-center">
-          Ou continuer avec
-        </p>
-        <hr className=" w-full h-1 rounded-md bg-[#130E0A1A]" />
-      </div>
+    <div className="flex justify-between items-center w-full px-6 ">
+      <hr className="w-full h-1 rounded-md bg-[#130E0A1A]" />
+      <p className="w-[26rem] px-2 text-sm text-gray-700 text-center">
+        Ou continuer avec
+      </p>
+      <hr className=" w-full h-1 rounded-md bg-[#130E0A1A]" />
+    </div>
       <div className="w-full flex flex-col gap-4">
         <div className="flex justify-center gap-4 items-center border w-full py-2 rounded-lg">
           <svg

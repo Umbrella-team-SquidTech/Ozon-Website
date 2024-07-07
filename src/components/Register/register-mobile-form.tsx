@@ -34,7 +34,7 @@ export function RegisterMobileForm() {
   return (
 
       <form onSubmit={handleSubmit(onSubmit)} >
-      <Card className="w-full max-w-md mx-auto border-0 bg-BgColor space-y-2 shadow-none px-6">
+      <Card className="w-full max-w-md sm:max-w-max md:max- mx-auto border-0 bg-BgColor space-y-2 shadow-none px-6">
         <CardContent className="space-y-2 py-2  ">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
@@ -120,7 +120,7 @@ export function RegisterMobileForm() {
         <CardFooter className="pb-2 ">
           <Button
             type="submit"
-            className="w-full bg-SecondaryColor rounded-[100px] p-6 text-base font-[700] font-Outfit"
+            className="w-full bg-SecondaryColor hover:bg-SecondaryColor rounded-[100px] p-6 text-base font-[700] font-Outfit"
           >
             S’inscrire
           </Button>
