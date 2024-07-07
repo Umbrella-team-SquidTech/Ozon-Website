@@ -72,12 +72,15 @@ export default function LoginForm() {
                   )}
                 />
               </div>
-              <Button type="submit" className="w-full h-14">
+              <Button
+                type="submit"
+                className="w-full h-14 bg-PrimaryColor text-lg hover:bg-SecondaryColor"
+              >
                 Connexion
               </Button>
               <Link
-                to="#"
-                className="inline-block w-full text-center text-sm underline text-muted-foreground"
+                to="/account/recover"
+                className="inline-block w-full text-center text-sm underline text-muted-foreground "
               >
                 Mot de passe oublié ?
               </Link>
