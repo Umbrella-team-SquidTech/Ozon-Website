@@ -34,7 +34,7 @@ export function RegisterMobileForm() {
   return (
 
       <form onSubmit={handleSubmit(onSubmit)} >
-      <Card className="w-full max-w-md mx-auto border-0 bg-BgColor space-y-2 shadow-none">
+      <Card className="w-full max-w-md mx-auto border-0 bg-BgColor space-y-2 shadow-none px-6">
         <CardContent className="space-y-2 py-2  ">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
@@ -78,6 +78,7 @@ export function RegisterMobileForm() {
               <button
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute inset-y-0 end-2"
+                type="button"
               >
                 {!showPassword ? (
                   <Eye color="#2D3A3A" />
@@ -104,6 +105,8 @@ export function RegisterMobileForm() {
               <button
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute inset-y-0 end-2"
+                type="button"
+
               >
                 {!showConfirmPassword ? (
                   <Eye color="#2D3A3A" />
