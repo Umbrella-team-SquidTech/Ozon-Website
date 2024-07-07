@@ -1,5 +1,5 @@
 import { z } from "zod";
-// i should add the validation for the password and the confirm password
+
 const registerSchema = z
   .object({
     nom: z.string().min(2, {

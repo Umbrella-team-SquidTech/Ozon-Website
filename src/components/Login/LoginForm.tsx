@@ -1,5 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+
 import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -34,6 +36,8 @@ export default function LoginForm() {
           <div className=" space-y-6">
             <div className="space-y-4">
               <div className="space-y-2">
+                <Label htmlFor="Email">Email</Label>
+
                 <FormField
                   control={form.control}
                   name="email"
@@ -41,7 +45,7 @@ export default function LoginForm() {
                     <FormItem>
                       <FormControl>
                         <Input
-                          placeholder="Email"
+                          placeholder="green@gmail.com"
                           required
                           className=" h-14"
                           {...field}
@@ -53,6 +57,8 @@ export default function LoginForm() {
                 />
               </div>
               <div className="space-y-2">
+              <Label htmlFor="password ">Mot de passe</Label>
+
                 <FormField
                   control={form.control}
                   name="password"
