@@ -4,19 +4,19 @@ import { z } from "zod";
 
 const registerSchema = z.object({
   nom: z.string().min(2, {
-    message: "Nom doit contenir au moins 2 caractères.",
+    message: "Nom court",
   }),
   prenom: z.string().min(2, {
-    message: "prenom doit contenir au moins 2 caractères.",
+    message: "prenom court",
   }),
   email: z.string().email({
-    message: "Email doit être valide.",
+    message: "Email invalide.",
   }),
   password: z.string().min(6, {
-    message: "Password should be at least 6 characters.",
+    message: "Password court",
   }),
   confirmPassword: z.string().min(6, {
-    message: "Password should be at least 6 characters.",
+    message: "Password court",
   }),
 });
 export default registerSchema;
