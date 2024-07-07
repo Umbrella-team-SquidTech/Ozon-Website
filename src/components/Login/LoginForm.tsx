@@ -79,7 +79,7 @@ export default function LoginForm() {
                 Connexion
               </Button>
               <Link
-                to="#"
+                to="/account/recover"
                 className="inline-block w-full text-center text-sm underline text-muted-foreground "
               >
                 Mot de passe oublié ?
