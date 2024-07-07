@@ -52,9 +52,15 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        PrimaryColor:"#2BA84A",
+        SecondaryColor:"#248232",
+        BgColor:"#FCFFFC",
+        TypoColor:"#040F0F",
+        NeutralColor:"#2D3A3A",
+        Neutral2Color:"#BAB8B8",
       },
       fontFamily: {
-        inter: ["Inter"],
+        Outfit: ["Outfit"],
       },
       borderRadius: {
         lg: "var(--radius)",
