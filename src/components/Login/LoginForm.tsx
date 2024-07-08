@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import useUserStore from "@/stores/useUser";
 import {
   Form,
   FormControl,
@@ -20,10 +19,9 @@ import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import axios from "@/config/axios";
 import { useNavigate } from "react-router-dom";
-import { setLocalStorage } from "@/utils/auth";
+import { setLocalStorage } from "@/utils/storage";
 
 export default function LoginForm() {
-  const { setUser } = useUserStore();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [showPassword, setShowPassword] = useState(false);
@@ -37,22 +35,13 @@ export default function LoginForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-      setIsSubmitting(true);
+    setIsSubmitting(true);
     try {
       const res = await axios.post("/login", {
         email: values.email,
         password: values.password,
       });
       navigate("/home");
-      setUser({
-        id: res.data.id,
-        auth: true,
-        email: res.data.email,
-        name: res.data.name,
-        lastName: res.data.lastName,
-        profilePic: res.data.profilePic,
-        certified: res.data.certified,
-      });
       setLocalStorage("token", res.data.token);
       toast({
         title: "Inscription réussie",
@@ -67,8 +56,8 @@ export default function LoginForm() {
         className: " text-white font-Outfit py-3 space-y-0 gap-0",
         variant: "destructive",
       });
-    }finally{
-      setIsSubmitting(false)
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -162,7 +151,6 @@ export default function LoginForm() {
                         fill="currentFill"
                       />
                     </svg>
-                    
                   </div>
                 </Button>
               )}
