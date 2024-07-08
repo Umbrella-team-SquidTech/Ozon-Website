@@ -1,4 +1,4 @@
-import CheckIcon from "@/assets/HomePage/checkCircle.svg";
+import CheckIcon from "@/assets/checkCircle.svg";
 import ImageBackground from "@/assets/HomePage/EventBackground.png";
 import SHareandJoin from "@/components/HomePage/ShareandJoin"
 
