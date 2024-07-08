@@ -12,12 +12,12 @@ export default function useAuth() {
     const authenticate = async () => {
       const user = await authenticateUser();
       if (!user!.auth) {
-        navigate("/login");
-        toast({
-          title: "Session expirée",
-          description: "Veuillez vous reconnecter",
-          variant: "destructive",
-        });
+        // navigate("/login");
+        // toast({
+        //   title: "Session expirée",
+        //   description: "Veuillez vous reconnecter",
+        //   variant: "destructive",
+        // });
       }
       setUser(user as UserI);
     };
