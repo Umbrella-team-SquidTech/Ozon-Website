@@ -11,7 +11,8 @@ import {
 import formSchema from "@/schemas/RegisterSchema";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { useToast } from "../ui/use-toast";import { useState } from "react";
+import { useToast } from "../ui/use-toast";
+import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
 export default function RegisterDeskForm() {
@@ -30,6 +31,22 @@ export default function RegisterDeskForm() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // REQUEST API
     console.log(values);
+    try {
+      console.log(values);
+      toast({
+        title: "Inscription réussie",
+        description: "Vous êtes inscrit avec succès",
+        className: "bg-green-500 text-white font-Outfit py-3 space-y-0 gap-0",
+      });
+    } catch (err) {
+      console.log(err);
+      toast({
+        title: "Erreur",
+        description: "Une erreur s'est produite lors de l'inscription",
+        className: " text-white font-Outfit py-3 space-y-0 gap-0",
+        variant: "destructive",
+      });
+    }
   }
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -129,23 +146,25 @@ export default function RegisterDeskForm() {
                     <FormItem>
                       <FormControl>
                         <div className="relative">
-                        <Input
-                          type={showConfirmPassword ? "text" : "password"}
-                          className=" h-14"
-                          placeholder="Confirmer le mot de passe"
-                          {...field}
-                        />
-                         <button
-                         type="button"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute inset-y-0 end-2"
-              >
-                {!showConfirmPassword ? (
-                  <Eye color="#2D3A3A" />
-                ) : (
-                  <EyeOff color="#2D3A3A" />
-                )}
-              </button>
+                          <Input
+                            type={showConfirmPassword ? "text" : "password"}
+                            className=" h-14"
+                            placeholder="Confirmer le mot de passe"
+                            {...field}
+                          />
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setShowConfirmPassword(!showConfirmPassword)
+                            }
+                            className="absolute inset-y-0 end-2"
+                          >
+                            {!showConfirmPassword ? (
+                              <Eye color="#2D3A3A" />
+                            ) : (
+                              <EyeOff color="#2D3A3A" />
+                            )}
+                          </button>
                         </div>
                       </FormControl>
                       <FormMessage />
