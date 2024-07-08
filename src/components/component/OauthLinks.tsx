@@ -3,7 +3,7 @@ import google from "@/assets/Register/Google.svg"
 import apple from "@/assets/Register/Apple.svg"
 const OauthLinks = () => {
   return (
-    <div className="w-full  flex md:hidden flex-col items-center justify-center gap-4">
+    <div className="w-full  flex md:hidden flex-col items-center justify-center gap-4 ">
     <div className="flex justify-between items-center w-full px-6 ">
       <hr className="w-full h-1 rounded-md bg-[#130E0A1A]" />
       <p className="w-[26rem] px-2 text-sm text-gray-700 text-center">

@@ -6,16 +6,16 @@ const registerSchema = z
       message: "Nom doit contenir au moins 2 caractères.",
     }),
     prenom: z.string().min(2, {
-      message: "prenom doit contenir au moins 2 caractères.",
+      message: "Prenom doit contenir au moins 2 caractères.",
     }),
     email: z.string().email({
       message: "Email doit être valide.",
     }),
     password: z.string().min(6, {
-      message: "Password should be at least 6 characters.",
+      message: "Mot de passe doit contenir au moins 6 caractères.",
     }),
     confirmPassword: z.string().min(6, {
-      message: "Password should be at least 6 characters.",
+      message: "Mot de passe doit contenir au moins 6 caractères.",
     }),
   })
   .superRefine((input, refinementContext) => {

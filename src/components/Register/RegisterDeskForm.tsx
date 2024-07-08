@@ -11,10 +11,11 @@ import {
 import formSchema from "@/schemas/RegisterSchema";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { useState } from "react";
+import { useToast } from "../ui/use-toast";import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
 export default function RegisterDeskForm() {
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {

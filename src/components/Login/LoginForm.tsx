@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-
+import { useToast } from "@/components/ui/use-toast";
 import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -14,8 +14,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import formSchema from "@/schemas/LoginSchema";
-
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 export default function LoginForm() {
+  const { toast } = useToast();
+  const [showPassword, setShowPassword] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -26,7 +29,23 @@ export default function LoginForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // REQUEST API
-    console.log(values);
+    try {
+      console.log(values);
+      toast({
+        title: "Inscription réussie",
+        description: "Vous êtes inscrit avec succès",
+        className: "bg-green-500 text-white font-Outfit py-3 space-y-0 gap-0", 
+      });
+    } catch (err) {
+      console.log(err);
+      toast({
+        title: "Erreur",
+        description: "Une erreur s'est produite lors de l'inscription",
+        className: " text-white font-Outfit py-3 space-y-0 gap-0", 
+        variant:"destructive"
+
+      });
+    }
   }
 
   return (
@@ -45,8 +64,7 @@ export default function LoginForm() {
                     <FormItem>
                       <FormControl>
                         <Input
-                          placeholder="green@gmail.com"
-                          required
+                          placeholder="Email"
                           className=" h-14"
                           {...field}
                         />
@@ -57,7 +75,7 @@ export default function LoginForm() {
                 />
               </div>
               <div className="space-y-2">
-              <Label htmlFor="password ">Mot de passe</Label>
+                <Label htmlFor="password ">Mot de passe</Label>
 
                 <FormField
                   control={form.control}
@@ -65,13 +83,25 @@ export default function LoginForm() {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <Input
-                          type="password"
-                          required
-                          className=" h-14"
-                          placeholder="Password"
-                          {...field}
-                        />
+                        <div className="relative">
+                          <Input
+                            type={showPassword ? "text" : "password"}
+                            className=" h-14"
+                            placeholder="Mot de passe"
+                            {...field}
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute inset-y-0 end-2"
+                          >
+                            {!showPassword ? (
+                              <Eye color="#2D3A3A" />
+                            ) : (
+                              <EyeOff color="#2D3A3A" />
+                            )}
+                          </button>
+                        </div>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
