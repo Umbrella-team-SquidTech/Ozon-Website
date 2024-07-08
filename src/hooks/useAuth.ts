@@ -5,8 +5,9 @@ import { useToast } from "@/components/ui/use-toast";
 
 export default function useAuth() {
   const { toast } = useToast();
-  const { setUser } = useUserStore();
+  const { setUser, user } = useUserStore();
   useEffect(() => {
+    if (user.auth) return;
     const authenticate = async () => {
       const user = await authenticateUser();
       if (!user!.auth) {

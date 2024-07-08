@@ -1,7 +1,7 @@
 import { create } from "zustand";
 type UserState = {
-  user: UserI | null;
-  setUser: (user: UserI | null) => void;
+  user: UserI;
+  setUser: (user: UserI) => void;
   removeUser: () => void;
 };
 
@@ -18,12 +18,10 @@ const initialState = {
 const useUserStore = create<UserState>((set) => ({
   user: initialState,
   setUser: (user) => {
-    localStorage.setItem("user", JSON.stringify(user));
     return set({ user });
   },
   removeUser: () => {
-    localStorage.removeItem("user");
-    return set({ user: null });
+    return set({ user: { ...initialState } });
   },
 }));
 

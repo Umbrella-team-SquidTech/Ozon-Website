@@ -5,4 +5,5 @@ declare interface UserI {
   lastName: string;
   profilePic: string;
   certified: number;
+  auth: boolean;
 }
