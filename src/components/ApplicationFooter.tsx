@@ -4,7 +4,7 @@ export default function ApplicationFooter() {
   const location = useLocation().pathname;
 
   return (
-    <footer className="md:hidden sticky bottom-0 z-40 w-full py-5 px-3 border-t flex justify-between items-center">
+    <footer className="md:hidden sticky bottom-0 z-40 w-full pb-3 pt-3 px-3 border-t flex justify-between items-center bg-white">
       <div
         className={`flex flex-col items-center justify-ceneter text-sm ${
           location === "/home"
