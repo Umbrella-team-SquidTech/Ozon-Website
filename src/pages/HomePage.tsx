@@ -12,6 +12,9 @@ export default function HomePage() {
         <SuggestedEvent />
         <CreatePost />
         <SinglePost/>
+        <SinglePost/>
+        <SinglePost/>
+        <SinglePost/>
       </div>
     </RootLayout>
   );
