@@ -61,6 +61,10 @@ export default {
       },
       fontFamily: {
         Outfit: ["Outfit"],
+        Inter: ["Inter"],
+      },
+      backgroundImage:{
+        'EventBackground': "url('./src/assets/HomePage/EventBackground.png')",
       },
       borderRadius: {
         lg: "var(--radius)",
