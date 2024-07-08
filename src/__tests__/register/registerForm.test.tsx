@@ -14,9 +14,9 @@ describe("RegisterDeskForm", () => {
 
     // Check if the email and password fields are in the document
     expect(screen.getByPlaceholderText("Nom")).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("Prenom")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Prénom")).toBeInTheDocument();
     expect(screen.getByPlaceholderText("Email")).toBeInTheDocument();
-    expect(screen.getByPlaceholderText("Password")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Mot de passe")).toBeInTheDocument();
     expect(
       screen.getByPlaceholderText("Confirmer le mot de passe")
     ).toBeInTheDocument();
@@ -37,13 +37,15 @@ describe("RegisterDeskForm", () => {
       await screen.findByText("Nom doit contenir au moins 2 caractères.")
     ).toBeInTheDocument();
     expect(
-      await screen.findByText("prenom doit contenir au moins 2 caractères.")
+      await screen.findByText("Prénom doit contenir au moins 2 caractères.")
     ).toBeInTheDocument();
     expect(
       await screen.findByText(/Email doit être valide./i)
     ).toBeInTheDocument();
     expect(
-      await screen.findAllByText(/Password should be at least 6 characters./i)
+      await screen.findAllByText(
+        /Mot de passe doit contenir au moins 6 caractères./i
+      )
     ).toHaveLength(2);
   });
 
@@ -58,13 +60,13 @@ describe("RegisterDeskForm", () => {
     fireEvent.input(screen.getByPlaceholderText("Nom"), {
       target: { value: "Younes" },
     });
-    fireEvent.input(screen.getByPlaceholderText("Prenom"), {
+    fireEvent.input(screen.getByPlaceholderText("Prénom"), {
       target: { value: "fdj" },
     });
     fireEvent.input(screen.getByPlaceholderText("Email"), {
       target: { value: "example@xyz.com" },
     });
-    fireEvent.input(screen.getByPlaceholderText("Password"), {
+    fireEvent.input(screen.getByPlaceholderText("Mot de passe"), {
       target: { value: "password1234" },
     });
     fireEvent.input(screen.getByPlaceholderText("Confirmer le mot de passe"), {

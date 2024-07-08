@@ -14,7 +14,7 @@ describe("LoginForm", () => {
 
     // Check if the email and password fields are in the document
     expect(screen.getByPlaceholderText(/email/i)).toBeInTheDocument();
-    expect(screen.getByPlaceholderText(/password/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/Mot de passe/i)).toBeInTheDocument();
   });
 
   it("shows validation messages when fields are empty", async () => {
@@ -48,7 +48,7 @@ describe("LoginForm", () => {
     fireEvent.input(screen.getByPlaceholderText(/email/i), {
       target: { value: "test@example.com" },
     });
-    fireEvent.input(screen.getByPlaceholderText(/password/i), {
+    fireEvent.input(screen.getByPlaceholderText(/Mot de passe/i), {
       target: { value: "password123" },
     });
 

@@ -6,7 +6,7 @@ const registerSchema = z
       message: "Nom doit contenir au moins 2 caractères.",
     }),
     prenom: z.string().min(2, {
-      message: "Prenom doit contenir au moins 2 caractères.",
+      message: "Prénom doit contenir au moins 2 caractères.",
     }),
     email: z.string().email({
       message: "Email doit être valide.",

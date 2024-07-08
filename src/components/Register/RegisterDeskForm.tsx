@@ -79,7 +79,7 @@ export default function RegisterDeskForm() {
                       <FormControl>
                         <Input
                           className=" h-14"
-                          placeholder="Prenom"
+                          placeholder="Prénom"
                           {...field}
                         />
                       </FormControl>
