@@ -12,10 +12,18 @@ const IncomingEvents = () => {
     <div className="mt-4">
       <Carousel className="w-full "
       >
-        <CarouselContent>
-          <CarouselItem >
+        <CarouselContent >
+          <CarouselItem  className="flex flex-row gap-2">
+            <SingleEvent />
+            <SingleEvent />
             <SingleEvent />
           </CarouselItem>
+          <CarouselItem  className="flex flex-row gap-2 ">
+            <SingleEvent />
+            <SingleEvent />
+            <SingleEvent />
+          </CarouselItem>
+          
          
         </CarouselContent>
         <CarouselPrevious />
