@@ -6,7 +6,7 @@ export default function HomePage() {
   useAuth();
   return (
     <RootLayout>
-      <div className="px-20">
+      <div className="p-5 md:px-20">
         <SuggestedEvent />
       </div>
     </RootLayout>
