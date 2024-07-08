@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import useUserStore from "@/stores/useUser";
 import {
   Form,
   FormControl,
@@ -17,7 +18,13 @@ import formSchema from "@/schemas/LoginSchema";
 import { Eye, EyeOff } from "lucide-react";
 // REACT HOOKS
 import { useState } from "react";
+import axios from "@/config/axios";
+import { useNavigate } from "react-router-dom";
+import { setLocalStorage } from "@/utils/auth";
+
 export default function LoginForm() {
+  const { setUser } = useUserStore();
+  const navigate = useNavigate();
   const { toast } = useToast();
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,25 +36,36 @@ export default function LoginForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // REQUEST API
-    setIsSubmitting(true);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+      setIsSubmitting(true);
     try {
-
-      console.log(values);
+      const res = await axios.post("/login", {
+        email: values.email,
+        password: values.password,
+      });
+      navigate("/home");
+      setUser({
+        id: res.data.id,
+        auth: true,
+        email: res.data.email,
+        name: res.data.name,
+        lastName: res.data.lastName,
+        profilePic: res.data.profilePic,
+        certified: res.data.certified,
+      });
+      setLocalStorage("token", res.data.token);
       toast({
         title: "Inscription réussie",
         description: "Vous êtes inscrit avec succès",
-        className: "bg-green-500 text-white font-Outfit py-3 space-y-0 gap-0", 
+        className: "bg-green-500 text-white font-Outfit py-3 space-y-0 gap-0",
       });
     } catch (err) {
       console.log(err);
       toast({
         title: "Erreur",
         description: "Une erreur s'est produite lors de l'inscription",
-        className: " text-white font-Outfit py-3 space-y-0 gap-0", 
-        variant:"destructive"
-
+        className: " text-white font-Outfit py-3 space-y-0 gap-0",
+        variant: "destructive",
       });
     }finally{
       setIsSubmitting(false)

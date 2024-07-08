@@ -3,6 +3,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import RecoverPass from "./pages/RecoverPass";
 import ValidateRegisterPage from "./pages/ValidateRegisterPage";
+import HomePage from "./pages/HomePage";
 const Router = createBrowserRouter([
   {
     path: "/",
@@ -23,6 +24,10 @@ const Router = createBrowserRouter([
   {
     path: "/account/validate",
     element: <ValidateRegisterPage />,
+  },
+  {
+    path: "/home",
+    element: <HomePage />,
   },
   {
     path: "*",
