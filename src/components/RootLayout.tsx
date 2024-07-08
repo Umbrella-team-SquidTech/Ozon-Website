@@ -1,6 +1,5 @@
-import ApplicationLogo from "./ApplicationLogo";
-import NavLinks from "./NavLinks";
-import NavSideLinks from "./NavSideLinks";
+import ApplicationHeader from "./ApplicationHeader";
+import ApplicationFooter from "./ApplicationFooter";
 interface RootLayoutProps {
   children: React.ReactNode;
   isMobile?: boolean;
@@ -8,12 +7,9 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <div className="font-Outfit">
-      <header className="sticky top-0 z-40 w-full py-5 px-3 md:border-b flex justify-between items-center">
-        <ApplicationLogo />
-        <NavLinks />
-        <NavSideLinks />
-      </header>
-      <main>{children}</main>
+      <ApplicationHeader />
+      <main className="h-screen z-0">{children}</main>
+      <ApplicationFooter />
     </div>
   );
 }
