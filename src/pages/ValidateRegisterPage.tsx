@@ -38,7 +38,9 @@ export default function ValidateRegisterPage() {
         <div className="h-screen flex justify-center items-center font-Outfit">
           <div className="border flex justify-center items-center h-96 rounded-lg">
             <div className="flex flex-col items-center justify-between w-[35rem] h-full py-10 px-8 gap">
-              <h2 className="font-bold text-3xl">Une dernière étape !</h2>
+              <h2 className="font-bold text-3xl text-PrimaryColor">
+                Une dernière étape !
+              </h2>
               <p className="text-slate-500 text-base text-center max-w-[22rem]">
                 Entrez le code à 6 chiffres que vous avez reçu sur votre boite
                 mail.
@@ -84,7 +86,10 @@ export default function ValidateRegisterPage() {
                   )}
                 />
 
-                <Button type="submit" className="w-[80%] bg-PrimaryColor hover:bg-SecondaryColor ">
+                <Button
+                  type="submit"
+                  className="w-[80%] bg-PrimaryColor hover:bg-SecondaryColor "
+                >
                   Continuer
                 </Button>
               </div>

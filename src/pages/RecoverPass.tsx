@@ -33,10 +33,12 @@ export default function RecoverPass() {
         <div className="h-screen w-screen flex justify-center items-center font-Outfit">
           <div className="border  md:px-0 flex justify-center items-center h-96 rounded-lg w-5/6 md:w-full ">
             <div className="flex flex-col items-center justify-between md:w-[35rem] h-full py-10 md:px-8 w-full gap">
-              <h2 className="font-bold text-3xl">Mot de passe oublié ?</h2>
+              <h2 className="font-bold text-3xl text-PrimaryColor">
+                Mot de passe oublié ?
+              </h2>
               <p className="text-slate-500 text-base text-center  w-full  ">
-                Veuillez entrez l'adresse e-mail que vous avez utilisée pour créer votre
-                compte.
+                Veuillez entrez l'adresse e-mail que vous avez utilisée pour
+                créer votre compte.
               </p>
               <div className=" w-full px-4 md:px-14 flex flex-col gap-4">
                 <FormField
