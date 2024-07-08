@@ -4,7 +4,7 @@ export default function HomePage() {
   useAuth();
   return (
     <RootLayout>
-      <div>hello</div>
+      <div className="px-20">hello</div>
     </RootLayout>
   );
 }
