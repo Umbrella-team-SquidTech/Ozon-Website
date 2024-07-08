@@ -1,10 +1,12 @@
 import ApplicationHeader from "./ApplicationHeader";
 import ApplicationFooter from "./ApplicationFooter";
+import useUserStore from "@/stores/useUser";
 interface RootLayoutProps {
   children: React.ReactNode;
-  isMobile?: boolean;
 }
 export default function RootLayout({ children }: RootLayoutProps) {
+  const { user } = useUserStore();
+  console.log(user);
   return (
     <div className="font-Outfit">
       <ApplicationHeader />
