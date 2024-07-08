@@ -17,10 +17,13 @@ import {
 import formSchema from "@/schemas/LoginSchema";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import axios from "@/config/axios";
+import { useNavigate } from "react-router-dom";
+import { setLocalStorage } from "@/utils/auth";
 
 export default function LoginForm() {
-  const { user } = useUserStore();
-  console.log(user);
+  const { setUser } = useUserStore();
+  const navigate = useNavigate();
   const { toast } = useToast();
   const [showPassword, setShowPassword] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -31,10 +34,23 @@ export default function LoginForm() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // REQUEST API
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      console.log(values);
+      const res = await axios.post("/login", {
+        email: values.email,
+        password: values.password,
+      });
+      navigate("/home");
+      setUser({
+        id: res.data.id,
+        auth: true,
+        email: res.data.email,
+        name: res.data.name,
+        lastName: res.data.lastName,
+        profilePic: res.data.profilePic,
+        certified: res.data.certified,
+      });
+      setLocalStorage("token", res.data.token);
       toast({
         title: "Inscription réussie",
         description: "Vous êtes inscrit avec succès",

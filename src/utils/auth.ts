@@ -1,6 +1,6 @@
 import axios from "@/config/axios";
 
-export default async function authenticateUser() {
+export async function authenticateUser() {
   const token = localStorage.getItem("token");
   if (!token) {
     return {
@@ -40,4 +40,11 @@ export default async function authenticateUser() {
       certified: 0,
     };
   }
+}
+
+export function setLocalStorage(prop: string, val: string) {
+  localStorage.setItem(prop, val);
+}
+export function removeLocalStorage(prop: string) {
+  localStorage.removeItem(prop);
 }

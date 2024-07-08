@@ -1,5 +1,5 @@
 declare interface UserI {
-  id: number;
+  id?: number;
   email: string;
   name: string;
   lastName: string;
