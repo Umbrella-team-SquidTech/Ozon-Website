@@ -13,12 +13,12 @@ export default function useAuth() {
       const user = await authenticateUser();
       if (!user!.auth) {
         // TODO : redirect to login page
-        // navigate("/login");
-        // toast({
-        //   title: "Session expirée",
-        //   description: "Veuillez vous reconnecter",
-        //   variant: "destructive",
-        // });
+        // // navigate("/login");
+        // // toast({
+        // //   title: "Session expirée",
+        // //   description: "Veuillez vous reconnecter",
+        // //   variant: "destructive",
+        // // });
       }
       setUser(user as UserI);
     };
