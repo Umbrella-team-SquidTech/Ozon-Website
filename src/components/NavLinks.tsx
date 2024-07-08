@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 export default function NavLinks() {
   const location = useLocation().pathname;
   return (
-    <div className="flex justify-between w-auto gap-8 text-[18px] text-slate-800 h-8">
+    <div className="md:flex justify-between w-auto gap-8 text-[18px] text-slate-800 h-8 hidden">
       <div
         className={`${
           location === "/home"

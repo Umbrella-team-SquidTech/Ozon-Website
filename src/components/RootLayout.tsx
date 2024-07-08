@@ -8,7 +8,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <div className="font-Outfit">
-      <header className="sticky top-0 z-40 w-full py-5 px-3 border-b flex justify-between items-center">
+      <header className="sticky top-0 z-40 w-full py-5 px-3 md:border-b flex justify-between items-center">
         <ApplicationLogo />
         <NavLinks />
         <NavSideLinks />
