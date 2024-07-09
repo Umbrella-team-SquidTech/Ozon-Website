@@ -9,6 +9,8 @@ export default function HomePage() {
   const token = useToken();
   const { user, isLoading, error } = useUser(token);
 
+  // TODO: handle error (navigate to error page)
+
   if (isLoading) {
     return (
       <RootLayout>
