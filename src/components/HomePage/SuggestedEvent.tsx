@@ -1,6 +1,6 @@
 import CheckIcon from "@/assets/checkCircle.svg";
 import ImageBackground from "@/assets/HomePage/EventBackground.png";
-import SHareandJoin from "@/components/HomePage/ShareandJoin"
+import ShareandJoin from "@/components/HomePage/ShareandJoin"
 
 const SuggestedEvent = () => {
   return (
@@ -25,7 +25,7 @@ const SuggestedEvent = () => {
           alt="eventBackground"
           className="rounded-r-xl w-full h-full object-cover  "
         />
-          <SHareandJoin />
+          <ShareandJoin />
       </div>
     </div>
   );
