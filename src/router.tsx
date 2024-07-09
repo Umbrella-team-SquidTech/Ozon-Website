@@ -5,6 +5,7 @@ import RecoverPass from "./pages/RecoverPass";
 import ValidateRegisterPage from "./pages/ValidateRegisterPage";
 import HomePage from "./pages/HomePage";
 import Events from "./pages/EventsPage";
+import EventDetails from "./pages/EventDetails"; 
 const Router = createBrowserRouter([
   {
     path: "/",
@@ -33,6 +34,10 @@ const Router = createBrowserRouter([
   {
     path: "/events",
     element: <Events />,
+  },
+  {
+    path: "/events/:id",
+    element: <EventDetails />,
   },
   {
     path: "*",
