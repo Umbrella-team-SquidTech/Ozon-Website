@@ -1,27 +1,26 @@
 import { create } from "zustand";
+import {
+  getLocalStorage,
+  setLocalStorage,
+  removeLocalStorage,
+} from "@/utils/storage";
 type UserState = {
-  user: UserI;
-  setUser: (user: UserI) => void;
+  user: UserI | null;
+  setUser: (user: UserI | null) => void;
   removeUser: () => void;
 };
 
-const initialState = {
-  auth: false,
-  id: 0,
-  name: "",
-  email: "",
-  certified: 0,
-  lastName: "",
-  profilePic: "",
-};
+const initialValue = getLocalStorage("user", true);
 
 const useUserStore = create<UserState>((set) => ({
-  user: initialState,
+  user: initialValue,
   setUser: (user) => {
+    setLocalStorage("user", JSON.stringify(user));
     return set({ user });
   },
   removeUser: () => {
-    return set({ user: { ...initialState } });
+    removeLocalStorage("user");
+    return set({ user: null });
   },
 }));
 
