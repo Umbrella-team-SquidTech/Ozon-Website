@@ -7,7 +7,7 @@ const Events = () => {
     <RootLayout>
       <div className="mt-4  pt-0 md:px-20">
         <div>
-        <h1 className="font-Inter text-[#130E0A] font-[700] text-xl border-b-2 border-black  w-fit">Évènements à venir</h1>
+        <h1 className="font-Inter text-[#2D3A3A] font-[700] text-xl border-b-2 border-black  w-fit">Évènements à venir</h1>
           <IncomingEvents />
           <AvailableEvents />
         </div>
