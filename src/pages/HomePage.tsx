@@ -4,12 +4,17 @@ import SuggestedEvent from "@/components/HomePage/SuggestedEvent";
 import RootLayout from "@/components/RootLayout";
 import useToken from "@/hooks/useToken";
 import useUser from "@/hooks/useUser";
+import HomePagePlaceholder from "@/components/HomePage/HomePagePlaceholder";
 export default function HomePage() {
   const token = useToken();
   const { user, isLoading, error } = useUser(token);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <RootLayout>
+        <HomePagePlaceholder />
+      </RootLayout>
+    );
   }
   return (
     <RootLayout>
