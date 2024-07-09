@@ -35,7 +35,7 @@ const truncatedTextDesktop = fullText.substring(0, 150) + "....";
           {fullText.length > 50 && (
             <p
               onClick={toggleText}
-              className="text-PrimaryColor cursor-pointer"
+              className="bg-gradient-to-r from-[#11998E]  to-[#38EF7D] bg-clip-text text-transparent cursor-pointer"
             >
               {showFullText ? " see less" : "see more"}
             </p>

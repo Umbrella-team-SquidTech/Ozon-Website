@@ -11,6 +11,8 @@ const Events = () => {
           <h1 className="font-Inter text-[#2D3A3A] font-[700] text-xl border-b-2 border-black  w-fit">
             Évènements à venir
           </h1>
+          {/* <IncomingEvents /> */}
+          {/* <AvailableEvents /> */}
           <IncomingEventsSkeleton />
           <AvailableEventsSkeleton />
         </div>

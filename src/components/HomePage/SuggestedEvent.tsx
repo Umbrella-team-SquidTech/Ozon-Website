@@ -10,7 +10,7 @@ const SuggestedEvent = () => {
           <p className="text-[#130E0A]/50 font-[700] text-xs md:text-base  ">
             Lundi, 21 Juillet 2024 · 14:00
           </p>
-          <h3 className="text-PrimaryColor  md:text-2xl font-[700]">
+          <h3 className=" bg-gradient-to-r from-[#11998E]  to-[#38EF7D] bg-clip-text text-transparent  md:text-2xl font-[700]">
             Plantation d’arbres pour créer une forêt
           </h3>
         </div>
