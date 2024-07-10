@@ -28,6 +28,9 @@ export default {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
+        screen: {
+          xl: "1280px",
+        },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
@@ -63,8 +66,8 @@ export default {
         Outfit: ["Outfit"],
         Inter: ["Inter"],
       },
-      backgroundImage:{
-        'EventBackground': "url('./src/assets/HomePage/EventBackground.png')",
+      backgroundImage: {
+        EventBackground: "url('./src/assets/HomePage/EventBackground.png')",
       },
       borderRadius: {
         lg: "var(--radius)",
