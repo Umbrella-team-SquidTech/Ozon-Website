@@ -26,8 +26,6 @@ const EventDetails = () => {
   const [loadingEvent, setLoadingEvent] = useState(true);
   const [event, setEvent] = useState<EventI | null>(null);
 
-  // TODO: add skeleton for this component
-
   useEffect(() => {
     setLoadingEvent(true);
     axios
