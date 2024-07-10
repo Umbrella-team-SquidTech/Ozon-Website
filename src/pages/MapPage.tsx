@@ -3,9 +3,11 @@ import { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import markers from "../markers.json";
 import RootLayout from "@/components/RootLayout";
-import { createRoot } from "react-dom/client";  
+import { createRoot } from "react-dom/client";
 import { Feature } from "geojson";
 import pin from "./assets/Pin.svg";
+import "mapbox-gl/dist/mapbox-gl.css";
+import ApplicationHeader from "@/components/ApplicationHeader";
 
 function MapPage() {
   // mapbox toker
@@ -45,26 +47,26 @@ function MapPage() {
           .setLngLat([lng, lat])
           .addTo(map.current);
       }
-        if (map.current) {
-          new mapboxgl.Marker(ref.current)
-        .setLngLat([lng, lat])
-        .setPopup(
-          new mapboxgl.Popup({ offset: 25 }) // add popups
-            .setHTML(
-              `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
-            )
-        )
-        .addTo(map.current);
-        }
+      if (map.current) {
+        new mapboxgl.Marker(ref.current)
+          .setLngLat([lng, lat])
+          .setPopup(
+            new mapboxgl.Popup({ offset: 25 }) // add popups
+              .setHTML(
+                `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+              )
+          )
+          .addTo(map.current);
+      }
     });
     map.current.addControl(new mapboxgl.NavigationControl());
   });
 
   return (
     <RootLayout>
-    <div className={"container"}>
-      <div ref={mapContainer} className="map-container" />
-    </div>
+      <div className={" w-full h-screen  pt-[80px] overflow-y-hidden"}>
+        <div ref={mapContainer} className=" w-full h-full " />
+      </div>
     </RootLayout>
   );
 }

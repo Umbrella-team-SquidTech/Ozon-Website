@@ -5,6 +5,7 @@ interface RootLayoutProps {
   children: React.ReactNode;
 }
 export default function RootLayout({ children }: RootLayoutProps) {
+  
   const { user } = useUserStore();
   console.log(user);
   return (

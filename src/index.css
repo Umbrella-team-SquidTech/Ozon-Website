@@ -75,8 +75,9 @@
   }
 }
 
-.map-container {
-  height: 90vh;
+/* .map-container {
+  height: 100%;
+  width: 100%;
   overflow: hidden;
 }
 
@@ -84,7 +85,7 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-}
+} */
 
 .marker {
   background-image: url("https://docs.mapbox.com/help/demos/custom-markers-gl-js/mapbox-icon.png");
