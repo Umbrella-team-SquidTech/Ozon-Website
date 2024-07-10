@@ -118,7 +118,7 @@ const EventDetails = () => {
             </div>
             <div className="py-8">
               <h1 className="font-Inter text-[#130E0A] font-[700] md:text-xl pt-4">
-                Programme de l'évènement
+                A propos de l'évènement
               </h1>
               <Card className="mt-4 p-5 flex flex-col gap-3">
                 <CardTitle>Title</CardTitle>
