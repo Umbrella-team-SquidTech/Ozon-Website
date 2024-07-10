@@ -75,15 +75,15 @@
   }
 }
 
+.map-container {
+  height: 90vh;
+  overflow: hidden;
+}
+
 .container {
   width: 100vw;
   height: 100vh;
-  background-color: red;
-}
-
-.map-container {
-  height: 100%;
-  width: 100%;
+  overflow: hidden;
 }
 
 .marker {

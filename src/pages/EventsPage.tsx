@@ -3,11 +3,13 @@ import IncomingEvents from "@/components/EventPage/IncomingEvents";
 import RootLayout from "@/components/RootLayout";
 import IncomingEventsSkeleton from "@/components/EventPage/IncomingEventsSkeleton";
 import AvailableEventsSkeleton from "@/components/EventPage/AvailableEventsSkeleton";
+
 import useToken from "@/hooks/useToken";
 import { useEffect, useState } from "react";
 import axios from "@/config/axios";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
+import MapCta from "@/components/EventPage/MapCta";
 const Events = () => {
   const token = useToken();
   const [eventLoading, setEventLoading] = useState(true);
@@ -60,6 +62,7 @@ const Events = () => {
           <h1 className="mx-2 font-Outfit text-[#130E0A] font-[700] text-xl border-b-2 border-black w-fit">
             Évènements à venir
           </h1>
+        <div className="px-2 md:px-0"><MapCta /></div>
           <IncomingEvents events={events} />
           <AvailableEvents />
         </div>
