@@ -1,35 +1,52 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import "../index.css";
 import { useRef, useEffect, useState } from "react";
+import EventPopup from "@/components/MapPage/EventPopup";
 import mapboxgl from "mapbox-gl";
-import markers from "../data/markers.json";
 import RootLayout from "@/components/RootLayout";
-import { createRoot } from "react-dom/client";
-import { Feature } from "geojson";
-
-import "mapbox-gl/dist/mapbox-gl.css";
+// import { createRoot } from "react-dom/client";
 import axios from "axios";
-import userMarkerImg from "../assets/MapPage/Userpin.svg";
-
+import customAxios from "@/config/axios";
+import "mapbox-gl/dist/mapbox-gl.css";
+import { generateFeatures } from "@/utils/geojson";
 function MapPage() {
-  mapboxgl.accessToken =
-    "pk.eyJ1IjoienZraTEiLCJhIjoiY2x5ZWNhZXRpMDExcDJrcW8zaTlubDFlMSJ9.JKxu32laTXbJs1hmX0-1VA";
+  mapboxgl.accessToken = "pk.eyJ1IjoienZraTEiLCJhIjoiY2x5ZWNhZXRpMDExcDJrcW8zaTlubDFlMSJ9.JKxu32laTXbJs1hmX0-1VA";
 
   const mapContainer = useRef(null);
-  const ref = useRef<null | HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
 
   const [longOfUSer, setLng] = useState(0);
   const [lattOfUser, setLat] = useState(0);
   const [zoom] = useState(5);
 
-  const userMarker = useRef<mapboxgl.Marker | null>(null);
+  const [events, setEvents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState<null | {
+    id: number;
+    name: string;
+    description: string;
+    address: string;
+    start: string;
+    organizer: UserI;
+    event_type: string;
+    images: string[];
+    participations: number;
+  }>(null);
+
+
 
   useEffect(() => {
+    customAxios
+      .get("/events")
+      .then((res) => {
+        setEvents(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
     axios
       .get("http://ip-api.com/json/")
       .then((response) => {
-        console.log(response.data);
         setLng(response.data.lon);
         setLat(response.data.lat);
       })
@@ -37,8 +54,8 @@ function MapPage() {
         console.log(error);
       });
 
-    if (map.current) return;
-
+      if (map.current) return;
+      // creating the map
     map.current = new mapboxgl.Map({
       container: mapContainer.current || document.createElement("div"),
       style: "mapbox://styles/mapbox/streets-v12",
@@ -46,68 +63,44 @@ function MapPage() {
       zoom: zoom,
     });
 
-    // Creating markers for each event
-    markers.features.forEach((feature) => {
-      // Create a new DOM node and save it to the React ref
-      ref.current = document.createElement("div");
-      // Render a Marker Component on our new DOM node
-      createRoot(ref.current).render(<Marker feature={feature as Feature} />);
-
-      // Create a Mapbox Marker at our new DOM node
-      const [lng, lat] = feature.geometry.coordinates;
-      if (map.current) {
-        new mapboxgl.Marker(ref.current)
-          .setLngLat([lng, lat])
-          .addTo(map.current);
-      }
-    });
-
     map.current.addControl(new mapboxgl.NavigationControl());
 
-    // const userMarkerElement = document.createElement("div");
-
-    // userMarkerElement.style.backgroundImage = `url(${userMarkerImg})`;
-    // userMarkerElement.style.width = "28px";
-    // userMarkerElement.style.height = "44px";
-    // userMarkerElement.style.backgroundSize = "cover";
-
-    // userMarker.current = new mapboxgl.Marker(userMarkerElement)
-    //   .setLngLat([longOfUSer, lattOfUser])
-    //   .addTo(map.current);
   }, []);
 
   useEffect(() => {
     if (map.current) {
       map.current.setCenter([longOfUSer, lattOfUser]);
 
-      if (userMarker.current) {
-        userMarker.current.setLngLat([longOfUSer, lattOfUser]);
-      }
+      const geoJsonData = generateFeatures(events);
+// creating the markers from generated geojson data 
+      geoJsonData.features.forEach(feature => {
+        const el = document.createElement('div');
+        el.className = 'marker';
+
+        el.addEventListener('click', () => {
+          setSelectedEvent(feature.properties);
+        });
+
+        if (map.current) {
+          new mapboxgl.Marker(el)
+            .setLngLat(feature.geometry.coordinates as mapboxgl.LngLatLike)
+            .addTo(map.current);
+        }
+      });
+
     }
-  }, [longOfUSer, lattOfUser]);
+  }, [events, longOfUSer, lattOfUser]);
 
   return (
     <RootLayout>
       <div className="w-full h-screen pt-[80px] overflow-y-hidden">
         <div ref={mapContainer} className="w-full h-full" />
+        {selectedEvent && <EventPopup event={selectedEvent} onClose={() => setSelectedEvent(null)} />}
       </div>
     </RootLayout>
   );
 }
 
+
+
 export default MapPage;
-
-const Marker = ({ feature }: { feature: Feature }) => {
-  const _onClick = () => {
-    // alert(feature?.properties?.description);
-    // console.log(feature);
-  };
-
-  return (
-    <button onClick={_onClick} className="marker">
-      {/* {children} */}
-      {/* <img src={pin} alt=" pin" className="bg-cover" /> */}
-      {/* <h1>event</h1> */}
-    </button>
-  );
-};
