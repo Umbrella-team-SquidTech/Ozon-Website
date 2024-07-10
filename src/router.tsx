@@ -6,6 +6,8 @@ import ValidateRegisterPage from "./pages/ValidateRegisterPage";
 import HomePage from "./pages/HomePage";
 import Events from "./pages/EventsPage";
 import EventDetails from "./pages/EventDetails"; 
+import MapPage from "./pages/MapPage";
+import CreatePostmobile from "./pages/CreatePostmobile";
 const Router = createBrowserRouter([
   {
     path: "/",
@@ -28,6 +30,10 @@ const Router = createBrowserRouter([
     element: <ValidateRegisterPage />,
   },
   {
+      path:"/map",
+      element:<MapPage/>
+  },
+  {
     path: "/home",
     element: <HomePage />,
   },
@@ -38,6 +44,10 @@ const Router = createBrowserRouter([
   {
     path: "/events/:id",
     element: <EventDetails />,
+  },
+  {
+    path:"/createPost",
+    element:<CreatePostmobile/>
   },
   {
     path: "*",
