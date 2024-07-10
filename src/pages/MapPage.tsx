@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import "../index.css";
 import { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
@@ -5,35 +6,52 @@ import markers from "../markers.json";
 import RootLayout from "@/components/RootLayout";
 import { createRoot } from "react-dom/client";
 import { Feature } from "geojson";
-import pin from "./assets/Pin.svg";
+
 import "mapbox-gl/dist/mapbox-gl.css";
-import ApplicationHeader from "@/components/ApplicationHeader";
+import axios from "axios";
+import userMarkerImg from "../assets/MapPage/Userpin.svg";
 
 function MapPage() {
-  // mapbox toker
-  mapboxgl.accessToken =
-    "pk.eyJ1IjoienZraTEiLCJhIjoiY2x5ZWNhZXRpMDExcDJrcW8zaTlubDFlMSJ9.JKxu32laTXbJs1hmX0-1VA";
-  // map container red
+ 
+  mapboxgl.accessToken = "pk.eyJ1IjoienZraTEiLCJhIjoiY2x5ZWNhZXRpMDExcDJrcW8zaTlubDFlMSJ9.JKxu32laTXbJs1hmX0-1VA";
+
+  
   const mapContainer = useRef(null);
   const ref = useRef<null | HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
-  // rand states
-  const [lng, setLng] = useState(-70.9);
-  const [lat, setLat] = useState(42.35);
-  const [zoom, setZoom] = useState(9);
 
-  // useEffect tloadi la map
+
+  const [longOfUSer, setLng] = useState(0);
+  const [lattOfUser, setLat] = useState(0);
+  const [zoom] = useState(9);
+
+
+  const userMarker = useRef<mapboxgl.Marker | null>(null);
+
+  
   useEffect(() => {
-    if (map.current) return; // initialize map only once
-    // putting the map in the container
+   
+    axios.get("http://ip-api.com/json/")
+      .then((response) => {
+        // console.log(response.data);
+        setLng(response.data.lon);
+        setLat(response.data.lat);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    if (map.current) return;
+
+    
     map.current = new mapboxgl.Map({
       container: mapContainer.current || document.createElement("div"),
       style: "mapbox://styles/mapbox/streets-v12",
-      center: [lng, lat],
+      center: [longOfUSer, lattOfUser],
       zoom: zoom,
     });
 
-    // creating markers for each event
+    // Creating markers for each event
     markers.features.forEach((feature) => {
       // Create a new DOM node and save it to the React ref
       ref.current = document.createElement("div");
@@ -47,26 +65,39 @@ function MapPage() {
           .setLngLat([lng, lat])
           .addTo(map.current);
       }
-      // popUp
-      // if (map.current) {
-      //   new mapboxgl.Marker(ref.current)
-      //     .setLngLat([lng, lat])
-      //     .setPopup(
-      //       new mapboxgl.Popup({ offset: 25 }) // add popups
-      //         .setHTML(
-      //           `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
-      //         )
-      //     )
-      //     .addTo(map.current);
-      // }
     });
+
     map.current.addControl(new mapboxgl.NavigationControl());
-  });
+
+
+    const userMarkerElement = document.createElement("div");
+   
+    userMarkerElement.style.backgroundImage = `url(${userMarkerImg})`;
+    userMarkerElement.style.width = "28px";
+    userMarkerElement.style.height = "44px";
+    userMarkerElement.style.backgroundSize = "cover";
+
+    
+    userMarker.current = new mapboxgl.Marker(userMarkerElement)
+      .setLngLat([longOfUSer, lattOfUser])
+      .addTo(map.current);
+  }, []);
+
+
+  useEffect(() => {
+    if (map.current) {
+      map.current.setCenter([longOfUSer, lattOfUser]);
+
+      if (userMarker.current) {
+        userMarker.current.setLngLat([longOfUSer, lattOfUser]);
+      }
+    }
+  }, [longOfUSer, lattOfUser]);
 
   return (
     <RootLayout>
-      <div className={" w-full h-screen  pt-[80px] overflow-y-hidden"}>
-        <div ref={mapContainer} className=" w-full h-full " />
+      <div className="w-full h-screen pt-[80px] overflow-y-hidden">
+        <div ref={mapContainer} className="w-full h-full" />
       </div>
     </RootLayout>
   );
@@ -88,7 +119,3 @@ const Marker = ({ feature }: { feature: Feature }) => {
     </button>
   );
 };
-
-function markerClicked(description: string): void {
-  throw new Error("Function not implemented.");
-}
