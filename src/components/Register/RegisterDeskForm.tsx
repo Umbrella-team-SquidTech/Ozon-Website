@@ -30,7 +30,6 @@ export default function RegisterDeskForm() {
     },
   });
   const navigate = useNavigate();
-  // TODO: integrate with backend
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // REQUEST API
