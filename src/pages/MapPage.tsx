@@ -29,7 +29,7 @@ function MapPage() {
     axios
       .get("http://ip-api.com/json/")
       .then((response) => {
-        // console.log(response.data);
+        console.log(response.data);
         setLng(response.data.lon);
         setLat(response.data.lat);
       })
@@ -64,16 +64,16 @@ function MapPage() {
 
     map.current.addControl(new mapboxgl.NavigationControl());
 
-    const userMarkerElement = document.createElement("div");
+    // const userMarkerElement = document.createElement("div");
 
-    userMarkerElement.style.backgroundImage = `url(${userMarkerImg})`;
-    userMarkerElement.style.width = "28px";
-    userMarkerElement.style.height = "44px";
-    userMarkerElement.style.backgroundSize = "cover";
+    // userMarkerElement.style.backgroundImage = `url(${userMarkerImg})`;
+    // userMarkerElement.style.width = "28px";
+    // userMarkerElement.style.height = "44px";
+    // userMarkerElement.style.backgroundSize = "cover";
 
-    userMarker.current = new mapboxgl.Marker(userMarkerElement)
-      .setLngLat([longOfUSer, lattOfUser])
-      .addTo(map.current);
+    // userMarker.current = new mapboxgl.Marker(userMarkerElement)
+    //   .setLngLat([longOfUSer, lattOfUser])
+    //   .addTo(map.current);
   }, []);
 
   useEffect(() => {
