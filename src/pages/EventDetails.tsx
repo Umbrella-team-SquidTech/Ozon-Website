@@ -37,14 +37,19 @@ const EventDetails = () => {
         setEvent(res.data.data);
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          navigate("/login");
-        }
         toast({
           title: "Erreur",
           description: "Erreur lors de la récupération de l'évènement",
           variant: "destructive",
         });
+        if (err.response.status === 401) {
+          navigate("/login");
+          toast({
+            title: "Veuillez vous reconnecter",
+            description: "Votre session a expiré",
+            variant: "destructive",
+          });
+        }
       });
   }, []);
 
@@ -67,21 +72,21 @@ const EventDetails = () => {
           </h1>
           <div className="py-8 px-4">
             <div className="flex flex-col items-start w-full ">
-              <Carousel className="w-full cursor-pointer">
+              <Carousel className="w-full cursor-pointer h-[30rem]">
                 <CarouselContent>
                   {event?.images.length === 0 ? (
                     <CarouselItem>
                       <img
                         src={placeholder}
-                        className="w-full self-center bg-cover"
+                        className="w-full self-center object-cover h-full"
                       />
                     </CarouselItem>
                   ) : null}
                   {event?.images?.map((image, index) => (
-                    <CarouselItem key={index}>
+                    <CarouselItem key={index} className="h-[30rem]">
                       <img
                         src={image ? image : placeholder}
-                        className="w-full self-center bg-cover"
+                        className="w-full self-center object-cover h-full"
                       />
                     </CarouselItem>
                   ))}
