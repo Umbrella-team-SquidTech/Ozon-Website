@@ -17,7 +17,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useEffect, useState } from "react";
 import axios from "@/config/axios";
 import placeholder from "@/assets/placeholder.png";
-
+import EventDetailsSkeleton from "@/components/Skeletons/EventDetailsSkeleton";
 const EventDetails = () => {
   const { id } = useParams<{ id: string }>();
   const token = useToken();
@@ -56,9 +56,7 @@ const EventDetails = () => {
   if (loadingEvent) {
     return (
       <RootLayout>
-        <div className="flex justify-center items-center h-full">
-          <p>Chargement...</p>
-        </div>
+        <EventDetailsSkeleton />
       </RootLayout>
     );
   }
