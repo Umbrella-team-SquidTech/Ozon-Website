@@ -28,14 +28,19 @@ const Events = () => {
       })
       .catch((err) => {
         console.log(err);
-        if (err.response.status === 401) {
-          navigate("/login");
-        }
         toast({
           title: "Une erreur s'est produite lors de la récupération des posts",
           description: "Veuillez réessayer plus tard",
           variant: "destructive",
         });
+        if (err.response.status === 401) {
+          navigate("/login");
+          toast({
+            title: "Veuillez vous reconnecter",
+            description: "Votre session a expiré",
+            variant: "destructive",
+          });
+        }
       });
   }, []);
 
@@ -62,9 +67,11 @@ const Events = () => {
           <h1 className="mx-2 font-Outfit text-[#130E0A] font-[700] text-xl border-b-2 border-black w-fit">
             Évènements à venir
           </h1>
-        <div className="px-2 md:px-0"><MapCta /></div>
+          <div className="px-2 md:px-0">
+            <MapCta />
+          </div>
           <IncomingEvents events={events} />
-          <AvailableEvents />
+          <AvailableEvents events={events} />
         </div>
       </div>
     </RootLayout>

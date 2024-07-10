@@ -32,15 +32,20 @@ export default function HomePage() {
           setPosts(res.data.data);
         })
         .catch((error) => {
-          if (error.response.status === 401) {
-            navigate("/login");
-          }
           toast({
             title:
               "Une erreur s'est produite lors de la récupération des posts",
             description: "Veuillez réessayer plus tard",
             variant: "destructive",
           });
+          if (error.response.status === 401) {
+            navigate("/login");
+            toast({
+              title: "Veuillez vous reconnecter",
+              description: "Votre session a expiré",
+              variant: "destructive",
+            });
+          }
         });
     };
     getPosts();
