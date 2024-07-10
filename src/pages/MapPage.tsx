@@ -1,10 +1,11 @@
+import "../index.css";
 import { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import markers from "../markers.json";
-import { createRoot } from "react-dom/client";
+import RootLayout from "@/components/RootLayout";
+import { createRoot } from "react-dom/client";  
 import { Feature } from "geojson";
-
-// import pin from "./assets/Pin.svg";
+import pin from "./assets/Pin.svg";
 
 function MapPage() {
   // mapbox toker
@@ -44,25 +45,27 @@ function MapPage() {
           .setLngLat([lng, lat])
           .addTo(map.current);
       }
-      if (map.current) {
-        new mapboxgl.Marker(ref.current)
-          .setLngLat([lng, lat])
-          .setPopup(
-            new mapboxgl.Popup({ offset: 25 }) // add popups
-              .setHTML(
-                `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
-              )
-          )
-          .addTo(map.current);
-      }
+        if (map.current) {
+          new mapboxgl.Marker(ref.current)
+        .setLngLat([lng, lat])
+        .setPopup(
+          new mapboxgl.Popup({ offset: 25 }) // add popups
+            .setHTML(
+              `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+            )
+        )
+        .addTo(map.current);
+        }
     });
     map.current.addControl(new mapboxgl.NavigationControl());
   });
 
   return (
+    <RootLayout>
     <div className={"container"}>
       <div ref={mapContainer} className="map-container" />
     </div>
+    </RootLayout>
   );
 }
 
