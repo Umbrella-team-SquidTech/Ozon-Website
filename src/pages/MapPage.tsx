@@ -21,7 +21,7 @@ function MapPage() {
 
   const [longOfUSer, setLng] = useState(0);
   const [lattOfUser, setLat] = useState(0);
-  const [zoom] = useState(9);
+  const [zoom] = useState(5);
 
   const userMarker = useRef<mapboxgl.Marker | null>(null);
 
