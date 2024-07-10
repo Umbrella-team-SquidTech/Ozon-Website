@@ -6,7 +6,7 @@ interface RootLayoutProps {
 }
 export default function RootLayout({ children }: RootLayoutProps) {
   const { user } = useUserStore();
-  console.log(user);
+  // console.log(user);
   return (
     <div className="font-Outfit">
       <ApplicationHeader />

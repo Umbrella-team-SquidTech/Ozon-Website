@@ -1,8 +1,8 @@
 declare interface UserI {
   id?: number;
-  email: string;
+  email?: string;
   name: string;
   lastName: string;
   profilePic: string;
-  certified: number;
+  certified?: number;
 }
