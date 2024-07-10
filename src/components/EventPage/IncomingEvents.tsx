@@ -7,24 +7,20 @@ import {
 } from "@/components/ui/carousel";
 import SingleEvent from "./SingleEvent";
 
-const IncomingEvents = () => {
+interface prop {
+  events: EventI[];
+}
+
+const IncomingEvents = ({ events }: prop) => {
   return (
     <div className="mt-4">
-      <Carousel className="w-full "
-      >
-        <CarouselContent >
-          <CarouselItem  className="flex flex-row gap-2">
-            <SingleEvent />
-            <SingleEvent />
-            <SingleEvent />
-          </CarouselItem>
-          <CarouselItem  className="flex flex-row gap-2 ">
-            <SingleEvent />
-            <SingleEvent />
-            <SingleEvent />
-          </CarouselItem>
-          
-         
+      <Carousel className="w-full ">
+        <CarouselContent>
+          {events.map((event, i) => (
+            <CarouselItem className=" md:basis-1/2 lg:basis-1/3">
+              <SingleEvent event={event} key={i} />
+            </CarouselItem>
+          ))}
         </CarouselContent>
         <CarouselPrevious />
         <CarouselNext />
