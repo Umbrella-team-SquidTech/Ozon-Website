@@ -11,6 +11,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <div className="font-Outfit">
       <ApplicationHeader />
       <main className=" z-0">{children}</main>
+
       <ApplicationFooter />
     </div>
   );

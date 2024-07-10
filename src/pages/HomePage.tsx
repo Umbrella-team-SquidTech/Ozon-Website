@@ -20,14 +20,7 @@ export default function HomePage() {
   }
   return (
     <RootLayout>
-      <div className="p-5 pt-0 md:px-20">
-        <SuggestedEvent />
-        <CreatePost />
-        <SinglePost />
-        <SinglePost />
-        <SinglePost />
-        <SinglePost />
-      </div>
+      <HomePagePlaceholder />
     </RootLayout>
   );
 }
