@@ -26,13 +26,15 @@ const EventDetails = () => {
   const [loadingEvent, setLoadingEvent] = useState(true);
   const [event, setEvent] = useState<EventI | null>(null);
 
+  // TODO: add skeleton for this component
+
   useEffect(() => {
     setLoadingEvent(true);
     axios
       .get(`/events/${id}`, { headers: { Authorization: `Bearer ${token}` } })
       .then((res) => {
         setLoadingEvent(false);
-        setEvent(res.data);
+        setEvent(res.data.data);
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -67,7 +69,15 @@ const EventDetails = () => {
             <div className="flex flex-col items-start w-full ">
               <Carousel className="w-full cursor-pointer">
                 <CarouselContent>
-                  {event?.images.map((image, index) => (
+                  {event?.images.length === 0 ? (
+                    <CarouselItem>
+                      <img
+                        src={placeholder}
+                        className="w-full self-center bg-cover"
+                      />
+                    </CarouselItem>
+                  ) : null}
+                  {event?.images?.map((image, index) => (
                     <CarouselItem key={index}>
                       <img
                         src={image ? image : placeholder}

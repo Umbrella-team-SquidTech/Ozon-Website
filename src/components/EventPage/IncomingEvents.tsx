@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/carousel";
 import SingleEvent from "./SingleEvent";
 import SingleEventMObile from "./SingleEventMObile";
-import SingleEventMobileCol from "./SingleEventMobileCol";
 
 interface prop {
   events: EventI[];
@@ -15,30 +14,28 @@ interface prop {
 
 const IncomingEvents = ({ events }: prop) => {
   return (
-        <>
+    <>
       {/* desktop version */}
-    <div className="mt-4 hidden md:block">
-      <Carousel className="w-full ">
-        <CarouselContent>
-          {events.map((event, i) => (
-            <CarouselItem className=" md:basis-1/2 lg:basis-1/3">
-              <SingleEvent event={event} key={i} />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
-    </div>
+      <div className="mt-4 hidden md:block">
+        <Carousel className="w-full ">
+          <CarouselContent>
+            {events.map((event, i) => (
+              <CarouselItem className=" md:basis-1/2 lg:basis-1/3">
+                <SingleEvent event={event} key={i} />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
+      </div>
       {/* mobile version */}
       <div className="flex flex-row overflow-x-auto gap-2 pl-2 pt-2 md:hidden">
-        <SingleEventMObile />
-        <SingleEventMObile />
-        <SingleEventMObile />
-        <SingleEventMObile />
-        <SingleEventMObile />
+        {events.map((event, i) => (
+          <SingleEventMObile event={event} key={i} />
+        ))}
       </div>
-      </>
+    </>
   );
 };
 

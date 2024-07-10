@@ -28,6 +28,8 @@ export default function RegisterDeskForm() {
     },
   });
 
+  // TODO: integrate with backend
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     // REQUEST API
     console.log(values);
@@ -206,7 +208,6 @@ export default function RegisterDeskForm() {
                         fill="currentFill"
                       />
                     </svg>
-                    
                   </div>
                 </Button>
               )}
