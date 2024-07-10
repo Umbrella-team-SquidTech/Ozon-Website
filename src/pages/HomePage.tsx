@@ -11,7 +11,7 @@ export default function HomePage() {
 
   // TODO: handle error (navigate to error page)
 
-  if (isLoading) {
+  if (!isLoading) {
     return (
       <RootLayout>
         <HomePagePlaceholder />
