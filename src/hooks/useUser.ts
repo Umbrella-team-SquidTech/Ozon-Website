@@ -6,6 +6,9 @@ export default function useUser(token: string) {
   const { setUser, user } = useUserStore();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
+
+  // TODO: refactor to a function that returns the connected user from the token
+
   function getUser() {
     axios
       .get("/user", {

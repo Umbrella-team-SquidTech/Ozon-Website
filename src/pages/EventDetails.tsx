@@ -1,5 +1,4 @@
 import RootLayout from "@/components/RootLayout";
-import EventImage from "@/assets/EventPage/EventImage.png";
 import { Calendar } from "lucide-react";
 import checkCircle from "@/assets/checkCircle.svg";
 import { Card, CardTitle, CardContent } from "@/components/ui/card";
@@ -12,8 +11,51 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { useNavigate, useParams } from "react-router-dom";
+import useToken from "@/hooks/useToken";
+import { useToast } from "@/components/ui/use-toast";
+import { useEffect, useState } from "react";
+import axios from "@/config/axios";
+import placeholder from "@/assets/placeholder.png";
 
 const EventDetails = () => {
+  const { id } = useParams<{ id: string }>();
+  const token = useToken();
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const [loadingEvent, setLoadingEvent] = useState(true);
+  const [event, setEvent] = useState<EventI | null>(null);
+
+  useEffect(() => {
+    setLoadingEvent(true);
+    axios
+      .get(`/events/${id}`, { headers: { Authorization: `Bearer ${token}` } })
+      .then((res) => {
+        setLoadingEvent(false);
+        setEvent(res.data);
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          navigate("/login");
+        }
+        toast({
+          title: "Erreur",
+          description: "Erreur lors de la récupération de l'évènement",
+          variant: "destructive",
+        });
+      });
+  }, []);
+
+  if (loadingEvent) {
+    return (
+      <RootLayout>
+        <div className="flex justify-center items-center h-full">
+          <p>Chargement...</p>
+        </div>
+      </RootLayout>
+    );
+  }
+
   return (
     <RootLayout>
       <div className="mt-4 pt-0 md:px-20">
@@ -25,11 +67,10 @@ const EventDetails = () => {
             <div className="flex flex-col items-start w-full ">
               <Carousel className="w-full cursor-pointer">
                 <CarouselContent>
-                  {Array.from({ length: 5 }).map((_, index) => (
+                  {event?.images.map((image, index) => (
                     <CarouselItem key={index}>
                       <img
-                        src={EventImage}
-                        alt=""
+                        src={image ? image : placeholder}
                         className="w-full self-center bg-cover"
                       />
                     </CarouselItem>
@@ -39,24 +80,27 @@ const EventDetails = () => {
                 <CarouselNext className="absolute right-10 w-12 h-12 border-none" />
               </Carousel>
               <h3 className="text-TypoColor font-Inter  md:text-xl font-[700] pt-5 ">
-                Plantation d'arbres pour créer une forêt
+                {event?.name}
               </h3>
               <div className=" flex flex-col justify-start items-start gap-3  ">
                 <div className="flex flex-row items-center gap-3 pt-3">
                   <Calendar size={32} className=" text-PrimaryColor  " />
                   <div>
                     <p className="text-[#130E0A]/50 font-[700] text-base font-Inter ">
-                      Lundi, 21 Juillet 2024
+                      {event?.start}
                     </p>
                     <p className="text-[#130E0A]/50 font-[400] text-xs font-Inter ">
-                      14:00 · 20:00 AM GMT +8
+                      {event?.start}
                     </p>
                   </div>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-3 ">
                   <img src={checkCircle} alt="checkCircle" />
                   <p className="text-[#130E0A]/50 font-[400] text-base font-Inter ">
-                    81 présents · Évènement disponible
+                    {event!.participations > 1
+                      ? `${event?.participations} présents`
+                      : `${event?.participations} présent`}
+                    . Evenement disponible hard coded
                   </p>
                 </div>
               </div>
@@ -69,32 +113,7 @@ const EventDetails = () => {
                 <CardTitle>Title</CardTitle>
                 <CardContent>
                   <p className="text-[#130E0A]/50 font-[400] text-base font-Inter">
-                    Lorem ipsum dolor sit amet consectetur. Ante commodo lacus
-                    magna donec id laoreet ultrices. Tortor orci morbi pharetra
-                    sed aliquam nunc. Aliquet eu pharetra ante sapien
-                    suspendisse. Feugiat sed consequat fames pretium cras
-                    tristique eu ut. Lorem ipsum dolor sit amet consectetur.
-                    Ante commodo lacus magna donec id laoreet ultrices. Tortor
-                    orci morbi pharetra sed aliquam nunc. Aliquet eu pharetra
-                    ante sapien suspendisse. Feugiat sed consequat fames pretium
-                    cras tristique eu ut. Lorem ipsum dolor sit amet
-                    consectetur. Ante commodo lacus magna donec id laoreet
-                    ultrices. Tortor orci morbi pharetra sed aliquam nunc.
-                    Aliquet eu pharetra ante sapien suspendisse. Feugiat sed
-                    consequat fames pretium cras tristique eu ut. Lorem ipsum
-                    dolor sit amet consectetur. Ante commodo lacus magna donec
-                    id laoreet ultrices. Tortor orci morbi pharetra sed aliquam
-                    nunc. Aliquet eu pharetra ante sapien suspendisse. Feugiat
-                    sed consequat fames pretium cras tristique eu ut. Lorem
-                    ipsum dolor sit amet consectetur. Ante commodo lacus magna
-                    donec id laoreet ultrices. Tortor orci morbi pharetra sed
-                    aliquam nunc. Aliquet eu pharetra ante sapien suspendisse.
-                    Feugiat sed consequat fames pretium cras tristique eu ut.
-                    Lorem ipsum dolor sit amet consectetur. Ante commodo lacus
-                    magna donec id laoreet ultrices. Tortor orci morbi pharetra
-                    sed aliquam nunc. Aliquet eu pharetra ante sapien
-                    suspendisse. Feugiat sed consequat fames pretium cras
-                    tristique eu ut.
+                    {event?.description}
                   </p>
                 </CardContent>
               </Card>
