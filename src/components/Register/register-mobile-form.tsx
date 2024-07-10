@@ -10,12 +10,16 @@ import { z } from "zod";
 import formSchema from "@/schemas/RegisterSchema";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
-
+import axios from "@/config/axios";
+import { useNavigate } from "react-router-dom";
+import useUserStore from "@/stores/useUser";
 export function RegisterMobileForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { setUser } = useUserStore();
   const { toast } = useToast();
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -31,18 +35,37 @@ export function RegisterMobileForm() {
     },
   });
 
-  // TODO: integrate with backend
-
   function onSubmit(values: z.infer<typeof formSchema>) {
     // REQUEST API
     setIsSubmitting(true);
     try {
-      console.log(values);
-      toast({
-        title: "Inscription réussie",
-        description: "Vous êtes inscrit avec succès",
-        className: "bg-green-500 text-white font-Outfit py-3 space-y-0 gap-0",
-      });
+      axios
+        .post("/register", {
+          name: values.nom,
+          last_name: values.prenom,
+          email: values.email,
+          password: values.password,
+        })
+        .then((res) => {
+          console.log(res);
+
+          navigate("/home");
+          toast({
+            title: "Inscription réussie",
+            description: "Vous êtes inscrit avec succès",
+            className:
+              "bg-green-500 text-white font-Outfit py-3 space-y-0 gap-0",
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          toast({
+            title: "Erreur",
+            description: "Une erreur s'est produite lors de l'inscription",
+            className: " text-white font-Outfit py-3 space-y-0 gap-0",
+            variant: "destructive",
+          });
+        });
     } catch (err) {
       console.log(err);
       toast({
@@ -58,37 +81,36 @@ export function RegisterMobileForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <Card className="w-full max-w-md sm:max-w-max md:max- mx-auto border-0 bg-BgColor space-y-2 shadow-none px-6">
+      <Card className="w-full max-w-md sm:max-w-max md:max- mx-auto border-0 bg-BgColor space-y-2 shadow-none px-8 ">
         <CardContent className="space-y-2 py-2  ">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
               <Label htmlFor="firstName">Prenom</Label>
-              <p className=" text-red-400 ">{errors.prenom?.message}</p>
               <Input
                 id="firstName"
                 placeholder="Zakaria"
                 {...register("prenom")}
               />
+              <p className=" text-red-400 text-xs">{errors.prenom?.message}</p>
             </div>
             <div className="space-y-1">
               <Label htmlFor="lastName">Nom</Label>
-              <p className=" text-red-400">{errors.nom?.message}</p>
               <Input id="lastName" placeholder="Regueig" {...register("nom")} />
+              <p className=" text-red-400 text-xs">{errors.nom?.message}</p>
             </div>
           </div>
           <div className="space-y-1">
             <Label htmlFor="email">Email</Label>
-            <p className=" text-red-400">{errors.email?.message}</p>
             <Input
               id="email"
               type="email"
               placeholder="example@email.com"
               {...register("email")}
             />
+            <p className=" text-red-400 text-xs">{errors.email?.message}</p>
           </div>
           <div className="space-y-1">
             <Label htmlFor="password">mot de passe</Label>
-            <p className=" text-red-400">{errors.password?.message}</p>
             <div className="relative">
               <Input
                 id="password"
@@ -96,6 +118,9 @@ export function RegisterMobileForm() {
                 placeholder="votre mot de passe"
                 {...register("password")}
               />
+              <p className=" text-red-400 text-xs">
+                {errors.password?.message}
+              </p>
               <button
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute inset-y-0 end-2"
@@ -113,7 +138,6 @@ export function RegisterMobileForm() {
             <Label htmlFor="confirmPassword">
               confirmation de mot de passe{" "}
             </Label>
-            <p className=" text-red-400">{errors.confirmPassword?.message}</p>
             <div className="relative">
               <Input
                 id="confirmPassword"
@@ -121,6 +145,9 @@ export function RegisterMobileForm() {
                 placeholder="confirmer votre mot de passe"
                 {...register("confirmPassword")}
               />
+              <p className=" text-red-400 text-xs">
+                {errors.confirmPassword?.message}
+              </p>
               <button
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 className="absolute inset-y-0 end-2"
@@ -139,7 +166,7 @@ export function RegisterMobileForm() {
           {!isSubmitting ? (
             <Button
               type="submit"
-              className="w-full h-14 bg-PrimaryColor text-lg hover:bg-SecondaryColor"
+              className="w-full h-10 bg-PrimaryColor text-lg hover:bg-SecondaryColor"
             >
               S'inscrire
             </Button>
@@ -149,7 +176,7 @@ export function RegisterMobileForm() {
               type="submit"
               className="w-full h-14 bg-PrimaryColor text-lg hover:bg-SecondaryColor"
             >
-              <div role="status">
+              <div>
                 <svg
                   aria-hidden="true"
                   className="w-8 h-8 text-gray-200 animate-spin  fill-PrimaryColor"

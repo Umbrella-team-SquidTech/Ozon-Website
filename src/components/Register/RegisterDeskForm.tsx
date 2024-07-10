@@ -14,7 +14,9 @@ import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-
+import axios from "@/config/axios";
+import { useNavigate } from "react-router-dom";
+import { setLocalStorage } from "@/utils/storage";
 export default function RegisterDeskForm() {
   const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -27,28 +29,39 @@ export default function RegisterDeskForm() {
       confirmPassword: "",
     },
   });
-
-  // TODO: integrate with backend
+  const navigate = useNavigate();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // REQUEST API
-    console.log(values);
     setIsSubmitting(true);
     try {
-      console.log(values);
-      toast({
-        title: "Inscription réussie",
-        description: "Vous êtes inscrit avec succès",
-        className: "bg-green-500 text-white font-Outfit py-3 space-y-0 gap-0",
-      });
+      axios
+        .post("/register", {
+          name: values.nom,
+          last_name: values.prenom,
+          email: values.email,
+          password: values.password,
+        })
+        .then((res) => {
+          setLocalStorage("token", res.data.token);
+          navigate("/home");
+          toast({
+            title: "Inscription réussie",
+            description: "Vous êtes inscrit avec succès",
+            className:
+              "bg-green-500 text-white font-Outfit py-3 space-y-0 gap-0",
+          });
+        })
+        .catch((err) => {
+          toast({
+            title: "Erreur",
+            description: "Une erreur s'est produite lors de l'inscription",
+            className: " text-white font-Outfit py-3 space-y-0 gap-0",
+            variant: "destructive",
+          });
+        });
     } catch (err) {
       console.log(err);
-      toast({
-        title: "Erreur",
-        description: "Une erreur s'est produite lors de l'inscription",
-        className: " text-white font-Outfit py-3 space-y-0 gap-0",
-        variant: "destructive",
-      });
     } finally {
       setIsSubmitting(false);
     }

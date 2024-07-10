@@ -9,13 +9,24 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "@/config/axios";
 import useUserStore from "@/stores/useUser";
 import { useToast } from "../ui/use-toast";
+import useToken from "@/hooks/useToken";
+
 export default function Profile() {
   const { removeUser } = useUserStore();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const token = useToken();
   function handleLogout() {
     axios
-      .post("/logout")
+      .post(
+        "/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then(() => {
         removeUser();
         navigate("/login");
