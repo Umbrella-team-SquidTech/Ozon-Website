@@ -13,8 +13,7 @@ import useToken from "@/hooks/useToken";
 function MapPage() {
   const { toast } = useToast();
   const token = useToken();
-  mapboxgl.accessToken =
-    "pk.eyJ1IjoienZraTEiLCJhIjoiY2x5ZWNhZXRpMDExcDJrcW8zaTlubDFlMSJ9.JKxu32laTXbJs1hmX0-1VA";
+  mapboxgl.accessToken = process.env.VITE_MAPBOX_TOKEN as string;
 
   const mapContainer = useRef(null);
   const map = useRef<mapboxgl.Map | null>(null);

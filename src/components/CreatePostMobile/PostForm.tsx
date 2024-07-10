@@ -29,7 +29,6 @@ const PostForm = () => {
     try {
       toast({
         title: "Post Publier avec succès",
-
         className: "bg-green-500 text-white font-Outfit py-3 space-y-0 gap-0",
       });
     } catch (err) {
@@ -73,7 +72,7 @@ const PostForm = () => {
           />
           <label
             htmlFor="imageUpload"
-            className="flex flex-row gap-1  items-center cursor-pointer"
+            className="flex flex-row gap-1 items-center cursor-pointer"
           >
             <img src={imageUpload} alt="" />
             <p className=" font-Inter font-[700] text-base">Photos</p>
