@@ -47,17 +47,18 @@ function MapPage() {
           .setLngLat([lng, lat])
           .addTo(map.current);
       }
-      if (map.current) {
-        new mapboxgl.Marker(ref.current)
-          .setLngLat([lng, lat])
-          .setPopup(
-            new mapboxgl.Popup({ offset: 25 }) // add popups
-              .setHTML(
-                `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
-              )
-          )
-          .addTo(map.current);
-      }
+      // popUp
+      // if (map.current) {
+      //   new mapboxgl.Marker(ref.current)
+      //     .setLngLat([lng, lat])
+      //     .setPopup(
+      //       new mapboxgl.Popup({ offset: 25 }) // add popups
+      //         .setHTML(
+      //           `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+      //         )
+      //     )
+      //     .addTo(map.current);
+      // }
     });
     map.current.addControl(new mapboxgl.NavigationControl());
   });
