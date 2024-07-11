@@ -11,6 +11,7 @@ import CreatePostmobile from "./pages/CreatePostmobile";
 import ProfilePage from "./pages/ProfilePage";
 import CreateEvent from "./pages/CreateEvent";
 import ImpactPage from "./pages/ImpactPage";
+import { NotFound } from "./pages/not-found";
 
 const Router = createBrowserRouter([
   {
@@ -67,7 +68,7 @@ const Router = createBrowserRouter([
   },
   {
     path: "*",
-    element: <div>404</div>,
+    element: <NotFound />,
   },
 ]);
 

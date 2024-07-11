@@ -40,7 +40,9 @@ const SingleEventMobileCol = ({ event }: prop) => {
           alt="eventBackground"
           className="rounded-r-xl w-full h-full object-cover  "
         />
+
         <ShareandJoin suggestedEvent={event} />
+
       </div>
     </div>
   );
