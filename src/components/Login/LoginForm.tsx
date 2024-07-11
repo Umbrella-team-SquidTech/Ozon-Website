@@ -126,7 +126,7 @@ export default function LoginForm() {
                   type="submit"
                   className="w-full h-14 bg-PrimaryColor text-lg hover:bg-SecondaryColor"
                 >
-                  S'inscrire
+                  Se connecter
                 </Button>
               ) : (
                 <Button

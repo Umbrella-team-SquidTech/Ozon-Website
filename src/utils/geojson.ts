@@ -1,6 +1,6 @@
 
 export function generateFeatures(events: EventI[]) {
-  
+
   return {
     type: "FeatureCollection",
     features: events.map(event => ({

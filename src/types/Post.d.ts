@@ -8,4 +8,5 @@ declare interface PostI {
   like_count: number;
   reposts: number;
   type?: string;
+  liked: boolean;
 }
