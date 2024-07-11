@@ -25,7 +25,7 @@ describe("LoginForm", () => {
     );
 
     // Click the submit button
-    fireEvent.click(screen.getByRole("button", { name: /connexion/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Se connecter/i }));
 
     // Update the text based on your actual validation messages
     expect(await screen.findByText(/Email invalide/i)).toBeInTheDocument();
@@ -53,6 +53,6 @@ describe("LoginForm", () => {
     });
 
     // Click the submit button
-    fireEvent.click(screen.getByRole("button", { name: /connexion/i }));
+    fireEvent.click(screen.getByRole("button", { name: /Se connecter/i }));
   });
 });
