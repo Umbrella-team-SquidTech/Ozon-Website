@@ -16,10 +16,13 @@ interface Props {
     comments_count: number;
     postId: string;
     liked: boolean;
-  };
+  },
+  setShowComments: (value: boolean) => void,
+  showComments: boolean,
+  commentsCount: number,
 }
 
-const PostReactions = ({ postInfo }: Props) => {
+const PostReactions = ({ postInfo ,setShowComments,showComments,commentsCount}: Props) => {
   const token = useToken();
   const [isLiked, setIsLiked] = useState(postInfo.liked);
   const [likeCount, setLikeCount] = useState(postInfo.like_count);
@@ -65,9 +68,11 @@ const PostReactions = ({ postInfo }: Props) => {
           )}
           {likeCount}
         </button>
-        <button className="flex flex-row justify-center items-center gap-1">
+        <button className="flex flex-row justify-center items-center gap-1"
+          onClick={() => setShowComments(!showComments)}
+        >
           <MessageCircle className="w-6 h-6 text-[#2D3A3A]" />
-          {postInfo.comments_count}
+          {commentsCount}
         </button>
         <button className="flex flex-row justify-center items-center gap-1">
           <Repeat2 className="w-6 h-6 text-[#2D3A3A]" />
