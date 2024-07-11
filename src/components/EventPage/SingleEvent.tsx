@@ -24,7 +24,7 @@ const SingleEvent = ({ event }: props) => {
           <p className="text-[#130E0A]/50 font-[700] text-xs md:text-base  ">
             {event.start}
           </p>
-          <h3 className="text-TypoColor  md:text-xl font-[600] h-16 overflow-scroll">
+          <h3 className="text-TypoColor  md:text-xl font-[600] h-16 ">
             {event.name}
           </h3>
           <div className="flex flex-row gap-1 items-center pt-2 ">
