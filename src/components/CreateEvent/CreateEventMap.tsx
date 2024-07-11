@@ -1,62 +1,62 @@
-import  { useState, useCallback, useEffect } from 'react';
-import { createRoot } from 'react-dom/client';
-import Map, { Marker, NavigationControl } from 'react-map-gl';
+import { useState, useCallback, useEffect } from "react";
+import { createRoot } from "react-dom/client";
+import Map, { Marker, NavigationControl } from "react-map-gl";
 
-import ControlPanel from '@/components/CreateEvent/control-panel';
-import Pin from '@/components/CreateEvent/pin';
+import ControlPanel from "@/components/CreateEvent/control-panel";
+import Pin from "@/components/CreateEvent/pin";
 
-import type { MarkerDragEvent, LngLat } from 'react-map-gl';
-import axios from '@/config/axios';
+import axios from "@/config/axios";
 
 const TOKEN = import.meta.env.VITE_MAPBOX_TOKEN as string; // Set your mapbox token here
 
 const initialViewState = {
   latitude: 36.7617,
   longitude: 3.05651,
-  zoom: 3.5
+  zoom: 3.5,
 };
 
-export default function CreateEventMap(){
+export default function CreateEventMap() {
   const [viewState, setViewState] = useState(initialViewState);
   const [marker, setMarker] = useState({
     latitude: 36.7617,
-    longitude: 3.05651
+    longitude: 3.05651,
   });
   const [events, logEvents] = useState<Record<string, any>>({});
 
   useEffect(() => {
-    axios.get('http://ip-api.com/json/')
-      .then(response => {
+    axios
+      .get("http://ip-api.com/json/")
+      .then((response) => {
         const { lat, lon } = response.data;
         setViewState({
           latitude: lat,
           longitude: lon,
-          zoom: 12
+          zoom: 12,
         });
         setMarker({
           latitude: lat,
-          longitude: lon
+          longitude: lon,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, []);
 
   const onMarkerDragStart = useCallback((event) => {
-    logEvents(_events => ({ ..._events, onDragStart: event.lngLat }));
+    logEvents((_events) => ({ ..._events, onDragStart: event.lngLat }));
   }, []);
 
   const onMarkerDrag = useCallback((event) => {
-    logEvents(_events => ({ ..._events, onDrag: event.lngLat }));
+    logEvents((_events) => ({ ..._events, onDrag: event.lngLat }));
     setMarker({
       longitude: event.lngLat.lng,
-      latitude: event.lngLat.lat
+      latitude: event.lngLat.lat,
     });
   }, []);
 
   const onMarkerDragEnd = useCallback((event) => {
-    logEvents(_events => ({ ..._events, onDragEnd: event.lngLat }));
+    logEvents((_events) => ({ ..._events, onDragEnd: event.lngLat }));
   }, []);
 
   return (
@@ -84,7 +84,6 @@ export default function CreateEventMap(){
     </>
   );
 }
-
 
 export function renderToDom(containerId: string) {
   const container = document.getElementById(containerId);

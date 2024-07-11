@@ -10,6 +10,7 @@ import MapPage from "./pages/MapPage";
 import CreatePostmobile from "./pages/CreatePostmobile";
 import ProfilePage from "./pages/ProfilePage";
 import CreateEvent from "./pages/CreateEvent";
+import ImpactPage from "./pages/ImpactPage";
 
 const Router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ const Router = createBrowserRouter([
   {
     path: "/createEvent",
     element: <CreateEvent />,
+  },
+  {
+    path: "/status",
+    element: <ImpactPage />,
   },
   {
     path: "*",

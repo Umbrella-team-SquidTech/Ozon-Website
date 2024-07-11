@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { CircleArrowRight, Share } from "lucide-react";
 import { Link } from "react-router-dom";
 import { RWebShare } from "react-web-share";
+import { compareDates } from "@/utils/formatDate";
 interface props {
   event: EventI;
 }
@@ -33,7 +34,10 @@ const SingleEvent = ({ event }: props) => {
               {event.participations > 1
                 ? `${event.participations} présents`
                 : `${event.participations} présent`}
-              . Evenement disponible hard coded
+              .{" "}
+              {!compareDates(event.start, new Date().toISOString())
+                ? "Evenement passé"
+                : "Evenement à venir"}
             </p>
           </div>
         </div>
@@ -49,26 +53,26 @@ const SingleEvent = ({ event }: props) => {
             </p>
           </Button>
           <RWebShare
-                data={{
-                  text: "Partager",
-                  url: "https://www.google.com/",
-                  title: "Partager",
-                }}  
-              >
-          <Button
-            className="w-full space-x-2    border border-[#2D3A3A] hover:bg-[#2D3A3A] group "
-            variant={"outline"}
+            data={{
+              text: "Partager",
+              url: "https://www.google.com/",
+              title: "Partager",
+            }}
           >
-            <Share
-              size={20}
-              strokeWidth={3}
-              className="hidden md:block group-hover:text-white"
-            />
+            <Button
+              className="w-full space-x-2    border border-[#2D3A3A] hover:bg-[#2D3A3A] group "
+              variant={"outline"}
+            >
+              <Share
+                size={20}
+                strokeWidth={3}
+                className="hidden md:block group-hover:text-white"
+              />
 
-            <p className=" group-hover:text-white font-Inter font-[700] text-base hidden md:block">
-              Partager cet l'évènement
-            </p>
-          </Button>
+              <p className=" group-hover:text-white font-Inter font-[700] text-base hidden md:block">
+                Partager cet l'évènement
+              </p>
+            </Button>
           </RWebShare>
         </div>
       </Card>
