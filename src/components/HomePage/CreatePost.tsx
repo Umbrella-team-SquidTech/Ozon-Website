@@ -74,6 +74,8 @@ const CreatePost = () => {
             .then((res) => {
               play();
               toast({ title: "Post publié avec succès" });
+              setImages([]);
+              setPostContent("");
             })
             .catch((error) => {
               toast({
