@@ -1,10 +1,10 @@
-const ProfileHeader = ({ user }: { user: UserI }) => {
-  console.log(user);
+import NumberTicker from "../magicui/number-ticker";
 
+const ProfileHeader = ({ user }: { user: UserI }) => {
   return (
     <div className="w-screen flex flex-col justify-center items-center py-2">
       <div className=" w-full rounded-md flex justify-center items-center">
-        <div className="w-[81.9%] flex justify-center items-center rounded-md bg-gray-200 z-10">
+        <div className="w-[81.9%] flex justify-center items-center rounded-md bg-gradient-to-tr from-[#11998E]  to-[#38EF7D] z-10">
           <img
             src={user.profile_pic}
             alt="Profile"
@@ -24,8 +24,9 @@ const ProfileHeader = ({ user }: { user: UserI }) => {
         </div>
         <div className="w- mt-8 font-semibold text-xl flex flex-col ">
           <h1>{user.name + " " + user.last_name}</h1>
-          <h2 className=" font-light text-md">
+          <h2 className=" font-light text-md flex">
             {user.grade?.grade + " " + user.grade?.emoji}
+            {user.points === 0 ? 0 : <NumberTicker value={user.points} />}
           </h2>
         </div>
       </div>
