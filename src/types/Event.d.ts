@@ -13,4 +13,5 @@ declare interface EventI {
   images: string[];
   created_at: string;
   participations: number;
+  user_is_participating?: boolean;
 }
