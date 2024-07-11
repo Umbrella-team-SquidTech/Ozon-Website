@@ -1,71 +1,25 @@
-import * as React from 'react';
-import {useState, useCallback} from 'react';
-import {createRoot} from 'react-dom/client';
-import Map, {Marker, NavigationControl} from 'react-map-gl';
+import { useEffect, useState } from "react";
+import { renderToDom } from "../components/CreateEvent/CreateEventMap";
+import useGeoLoactionStore from "@/stores/useGeoLocation";
+const CreateEvent = () => {
+  const { geoLocation } = useGeoLoactionStore();
+  useEffect(() => {
+    
+    console.log(geoLocation?.long,"from create event");
+    console.log(geoLocation?.lat,"from create event");
+  }, [geoLocation]);
 
-import ControlPanel from '@/components/CreateEvent/control-panel';
-import Pin from '@/components/CreateEvent/pin';
-
-import type {MarkerDragEvent, LngLat} from 'react-map-gl';
-
-const TOKEN = import.meta.env.VITE_MAPBOX_TOKEN as string; // Set your mapbox token here
-
-const initialViewState = {
-  latitude: 40,
-  longitude: -100,
-  zoom: 3.5
-};
-
-export default function CreateEvent() {
-  const [marker, setMarker] = useState({
-    latitude: 40,
-    longitude: -100
-  });
-  const [events, logEvents] = useState<Record<string, LngLat>>({});
-
-  const onMarkerDragStart = useCallback((event: MarkerDragEvent) => {
-    logEvents(_events => ({..._events, onDragStart: event.lngLat}));
-  }, []);
-
-  const onMarkerDrag = useCallback((event: MarkerDragEvent) => {
-    logEvents(_events => ({..._events, onDrag: event.lngLat}));
-
-    setMarker({
-      longitude: event.lngLat.lng,
-      latitude: event.lngLat.lat
-    });
-  }, []);
-
-  const onMarkerDragEnd = useCallback((event: MarkerDragEvent) => {
-    logEvents(_events => ({..._events, onDragEnd: event.lngLat}));
+  useEffect(() => {
+    renderToDom("map");
   }, []);
 
   return (
-    <>
-      <Map
-        initialViewState={initialViewState}
-        mapStyle="mapbox://styles/mapbox/dark-v9"
-        mapboxAccessToken={TOKEN}
-      >
-        <Marker
-          longitude={marker.longitude}
-          latitude={marker.latitude}
-          anchor="bottom"
-          draggable
-          onDragStart={onMarkerDragStart}
-          onDrag={onMarkerDrag}
-          onDragEnd={onMarkerDragEnd}
-        >
-          <Pin size={20} />
-        </Marker>
-
-        <NavigationControl />
-      </Map>
-      <ControlPanel events={events} />
-    </>
+    <div>
+      {/* rendering map  container */}
+      {/* NOTE:dont delete the id  */}
+      <div id="map" className="h-screen w-screen"></div>
+    </div>
   );
-}
+};
 
-export function renderToDom(container) {
-  createRoot(container).render(<CreateEvent />);
-}
+export default CreateEvent;

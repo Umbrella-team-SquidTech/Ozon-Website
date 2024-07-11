@@ -86,7 +86,7 @@
   height: 100vh;
   overflow: hidden;
 } */
-
+/* map style */
 .marker {
   background-image: url("./assets/MapPage/MapPin.svg");
   background-size: cover;
@@ -96,10 +96,7 @@
   cursor: pointer;
 }
 
-#map {
-  width: 100vw;
-  height: 100vh;
-}
+
 
 .control-panel {
   position: absolute;
