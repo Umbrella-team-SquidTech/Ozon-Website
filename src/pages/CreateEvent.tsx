@@ -21,11 +21,14 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-
+import { generateTimestamp, generateSignature } from "@/utils/cloudinary";
+import axios from "axios";
+import customAxios from "@/config/axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
+import { useToast } from "@/components/ui/use-toast";
+import eventTypes from "@/data/eventTypes.json";
 import {
   Form,
   FormControl,
@@ -34,12 +37,100 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import formSchema from "@/schemas/CreateEventSchema";
+import useToken from "@/hooks/useToken";
 const CreateEvent = () => {
   const { geoLocation } = useGeoLoactionStore();
   const [images, setImages] = useState<string[]>([]);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
+  const { toast } = useToast();
+  const token = useToken();
+  const [loading, setLoading] = useState(false);
+  function uploadWithImages(
+    images: string[],
+    formValues: z.infer<typeof formSchema>
+  ) {
+    const formData = new FormData();
+    const timeStamp = generateTimestamp().toString();
+    const public_id = import.meta.env.VITE_CLOUDINARY_PUBLIC;
+    const api_key = import.meta.env.VITE_CLOUDINARY_APIKEY;
+    const api_secret = import.meta.env.VITE_CLOUDINARY_SECRETKEY;
+    const eager = "w_400,h_300,c_pad|w_260,h_200,c_crop";
+    formData.append("api_key", api_key);
+    formData.append("eager", eager);
+    formData.append("public_id", public_id);
+    formData.append("timestamp", timeStamp);
+    formData.append("preset", "squid-tech");
+    formData.append(
+      "signature",
+      generateSignature(
+        `eager=${eager}&public_id=${public_id}&timestamp=${timeStamp}${api_secret}`
+      )
+    );
+    formData.append("file", images[0]);
+    axios
+      .post(
+        `https://api.cloudinary.com/v1_1/${public_id}/image/upload`,
+        formData,
+        {
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+          },
+        }
+      )
+      .then((res) => {
+        const imageUrl = res.data.secure_url;
+
+        customAxios
+          .post(
+            "/events",
+            {
+              name: formValues.name,
+              description: formValues.description,
+              address: formValues.address,
+              start: formValues.start,
+              event_type_id: parseInt(formValues.event_type_id),
+              limit: parseInt(formValues.limit),
+              organizer_id: 1,
+              longitude: geoLocation?.long,
+              latitude: geoLocation?.lat,
+              green_pass: formValues.green_pass,
+              images: [imageUrl],
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            toast({
+              title: "Evenement publié avec succès",
+              description: "Votre Evenement a été publié avec succès",
+              className:
+                "bg-green-500 text-white font-Outfit py-3 space-y-0 gap-0",
+            });
+            setImages([]);
+          })
+          .catch((error) => {
+            toast({
+              title: "Une erreur s'est produite",
+              description: error.message,
+              variant: "destructive",
+            });
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+        toast({
+          title: "Une erreur s'est produite",
+          description: error.message,
+          variant: "destructive",
+        });
+      });
+  }
+
   function handleImgUpload(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
 
@@ -66,7 +157,12 @@ const CreateEvent = () => {
   }, []);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    if (images.length === 0) {
+      return;
+    }
+    setLoading(true);
+    uploadWithImages(images, values);
+    setLoading(false);
   }
 
   return (
@@ -229,13 +325,13 @@ const CreateEvent = () => {
                               <SelectValue placeholder="Select event type" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="conference">
-                                Conference
-                              </SelectItem>
-                              <SelectItem value="1">Meetup</SelectItem>
-                              <SelectItem value="2">Workshop</SelectItem>
-                              <SelectItem value="3">Party</SelectItem>
-                              <SelectItem value="4">Other</SelectItem>
+                              {eventTypes.map((t, i) => {
+                                return (
+                                  <SelectItem value={t.id.toString()}>
+                                    {t.name}
+                                  </SelectItem>
+                                );
+                              })}
                             </SelectContent>
                           </Select>
                         </div>
