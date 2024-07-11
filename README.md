@@ -2,6 +2,21 @@
 
 Ce dépôt contient le code source du frontend de l'application Squid-Tech, développé avec ReactJS et diverses bibliothèques modernes pour assurer une expérience utilisateur optimale.
 
+## Fonctionnalite
+### -Gestion des posts:
+-creer des posts
+-liker commenter reposter partager des posts 
+-voir les posts
+-creer des posts
+
+### -Gestions des evenements:
+-creer des evenements
+-participer a des evenements
+-annuler la  participation a des evenements
+### -Visite de l'impact ecologique
+### -visite des profiles
+
+### -Gestion des posts
 ## Technologies Utilisées
 
 - **ReactJS** : Bibliothèque JavaScript pour construire des interfaces utilisateur.
@@ -14,6 +29,12 @@ Ce dépôt contient le code source du frontend de l'application Squid-Tech, dév
 - **Shadcn** : Composants React modernes.
 - **Vite** : Outil de construction rapide et léger.
 - **TypeScript** : Superset de JavaScript qui ajoute le typage statique.
+- **MapBox** : API pour l'intégration de cartes interactives dans l'application.
+- **use-sound** : Hook React pour gérer les effets sonores.
+- **recharts** : Bibliothèque pour créer des graphiques et des visualisations de données.
+- **react-map-gl** : Composants React pour intégrer Mapbox GL dans les applications React.
+- **lucide-react** : Composants d'icônes React basés sur Lucide.
+
 
 ## Installation
 
@@ -35,4 +56,9 @@ Ce dépôt contient le code source du frontend de l'application Squid-Tech, dév
    ```bash
    npm i
    npm run dev
+   ```
+
+   ### Pour lancer les tests:
+   ```bash
+   npm run test
    ```
