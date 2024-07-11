@@ -174,7 +174,6 @@ const CreateEvent = () => {
       })
       .then((res) => {
         console.log(res.data);
-
         setEventTypes(res.data.data);
       });
   }, []);
