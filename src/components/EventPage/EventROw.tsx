@@ -5,6 +5,7 @@ import { Button } from "../ui/button";
 import { CircleArrowRight, Share } from "lucide-react";
 import { Link } from "react-router-dom";
 import { RWebShare } from "react-web-share";
+import { formatDate, compareDates } from "@/utils/formatDate";
 interface prop {
   event: EventI;
 }
@@ -14,7 +15,7 @@ const EventROw = ({ event }: prop) => {
     <Link to={`/events/${event.id}`}>
       <div className="mt-4">
         <Card className="p-4 w-full h-full flex flex-row-reverse gap-4  justify-center">
-          <div className="w-full h-72">
+          <div className="w-1/2 h-72">
             <img
               src={event.images[0] ? event.images[0] : placeholderImage}
               alt="event image"
@@ -24,9 +25,9 @@ const EventROw = ({ event }: prop) => {
           <div className="w-1/2 flex flex-col items-start justify-evenly  ">
             <div className="pt-3">
               <p className="text-[#130E0A]/50 font-[700] text-xs md:text-base  ">
-                {event.start}
+                {formatDate(event.start)}
               </p>
-              <h3 className="text-TypoColor  md:text-xl font-[600] h-16">
+              <h3 className="text-TypoColor  md:text-xl font-[600] h-16 w-[80%] truncate">
                 {event.name}
               </h3>
             </div>
@@ -36,7 +37,10 @@ const EventROw = ({ event }: prop) => {
                 {event.participations > 1
                   ? `${event.participations} présents`
                   : `${event.participations} présent`}
-                . Evenement disponible hard coded
+                .{" "}
+                {!compareDates(event.start, new Date().toISOString())
+                  ? "Evenement passé"
+                  : "Evenement à venir"}
               </p>
             </div>
             <div className="w-full pt-4 space-y-2">
@@ -55,22 +59,22 @@ const EventROw = ({ event }: prop) => {
                   text: "Partager",
                   url: "https://www.google.com/",
                   title: "Partager",
-                }}  
+                }}
               >
-                              <Button
-                className="w-full space-x-2    border border-[#2D3A3A] hover:bg-[#2D3A3A] group "
-                variant={"outline"}
-              >
-                <Share
-                  size={20}
-                  strokeWidth={3}
-                  className="hidden md:block group-hover:text-white"
-                />
+                <Button
+                  className="w-full space-x-2 border border-[#2D3A3A] hover:bg-[#2D3A3A] group "
+                  variant={"outline"}
+                >
+                  <Share
+                    size={20}
+                    strokeWidth={3}
+                    className="hidden md:block group-hover:text-white"
+                  />
 
-                <p className=" group-hover:text-white font-Inter font-[700] text-base hidden md:block">
-                  Partager cet l'évènement
-                </p>
-              </Button>
+                  <p className=" group-hover:text-white font-Inter font-[700] text-base hidden md:block">
+                    Partager cet l'évènement
+                  </p>
+                </Button>
               </RWebShare>
             </div>
           </div>
