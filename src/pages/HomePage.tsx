@@ -10,6 +10,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
+import ScrollToTop from "@/components/ScrollToTop";
+
+
 export default function HomePage() {
   const token = useToken();
   const { user, isLoading, error } = useUser(token);
@@ -17,6 +20,28 @@ export default function HomePage() {
   const [loadingPosts, setLoadinPosts] = useState(true);
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
+  const [isVisible, setIsVisible] = useState(false);
+
+  const toggleVisibility = () => {
+    if (window.scrollY > 300) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
+  };
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', toggleVisibility);
+    return () => {
+      window.removeEventListener('scroll', toggleVisibility);
+    };
+  }, []);
+
 
   useEffect(() => {
     setLoadinPosts(true);
@@ -81,6 +106,7 @@ export default function HomePage() {
           ))}
         </div>
       </div>
+      {isVisible && <ScrollToTop  scrollToTop={scrollToTop}/>}
     </RootLayout>
   );
 }
