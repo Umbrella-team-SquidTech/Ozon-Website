@@ -64,12 +64,15 @@ const Events = () => {
     <RootLayout>
       <div className="mt-4 pt-0 md:px-20">
         <div>
-          <h1 className="mx-2 font-Outfit text-[#130E0A] font-[700] text-xl border-b-2 border-black w-fit">
+          {/* <h1 className="mx-2 font-Outfit text-[#130E0A] font-[700] text-xl   w-fit">
             Évènements à venir
-          </h1>
+          </h1> */}
           <div className="px-2 md:px-0">
             <MapCta />
           </div>
+          <h1 className="mx-2 mt-4 font-Outfit text-[#130E0A] font-[700] text-xl  w-fit">
+            Mes évènements
+          </h1>
           <IncomingEvents events={events} />
           <AvailableEvents events={events} />
         </div>
