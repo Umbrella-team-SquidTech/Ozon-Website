@@ -11,11 +11,15 @@ interface props {
     comments_count: number;
     postId: string;
     liked: boolean;
-  };
+  },
+  comments: CommentI[],
+  setComments: (comments: CommentI[]) => void,
+  setCommentsCount: (count: number) => void,
+  commentsCount: number,
 }
-const Comments = ({ postInfo }: props) => {
+const Comments = ({ postInfo,comments,setComments,setCommentsCount,commentsCount }: props) => {
   const token = useToken();
-  const [comments, setComments] = useState<CommentI[]>([]);
+ 
 
   useEffect(() => {
     axios
@@ -31,7 +35,7 @@ const Comments = ({ postInfo }: props) => {
       .catch((err) => {
         console.log(err);
       });
-  }, [postInfo.postId, token]);
+  }, [postInfo.postId, token,setComments]);
   return (
     <div>
       <h1>Comments</h1>
@@ -41,6 +45,8 @@ const Comments = ({ postInfo }: props) => {
         ))}
       </div>
       <CommentInput
+      commentsCount={commentsCount}
+      setCommentsCount={setCommentsCount}
       setComments={setComments}
       comments={comments}
       id={postInfo.postId}

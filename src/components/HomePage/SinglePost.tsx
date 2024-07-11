@@ -1,8 +1,10 @@
 import { Card } from "../ui/card";
 import PostReactions from "./PostReactions";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PostCarousel from "./PostCarousel";
 import Comments from "./Comments";
+import axios from "@/config/axios";
+import useToken from "@/hooks/useToken";
 
 interface props {
   post: PostI;
@@ -10,6 +12,8 @@ interface props {
 
 const SinglePost = ({ post }: props) => {
   const [showFullText, setShowFullText] = useState(false);
+  // hide show comments
+  const [showComments, setShowComments] = useState(false);
   const toggleText = () => {
     setShowFullText(!showFullText);
   };
@@ -25,6 +29,25 @@ const SinglePost = ({ post }: props) => {
     postId: post.id,
     liked: post.liked,
   };
+  const token = useToken();
+  const [comments, setComments] = useState<CommentI[]>([]);
+  const [commentsCount, setCommentsCount] = useState(post.comments_count);
+  
+useEffect(() => {
+  axios
+  .get(`/posts/${postInfo.postId}/comments`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  .then((res) => {
+   
+    setComments(res.data.data);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+}, [postInfo.postId,token]);
   return (
     <Card className="mt-4 p-4">
       <div>
@@ -59,8 +82,8 @@ const SinglePost = ({ post }: props) => {
         </p>
         <PostCarousel postGallery={post.images} />
       </div>
-      <PostReactions postInfo={postInfo} />
-      <Comments postInfo={postInfo} />
+      <PostReactions postInfo={postInfo} setShowComments={setShowComments} showComments={showComments} commentsCount={commentsCount} />
+      {showComments && <Comments postInfo={postInfo} comments={comments} setComments={setComments} setCommentsCount={setCommentsCount} commentsCount={commentsCount}/>}
     </Card>
   );
 };
