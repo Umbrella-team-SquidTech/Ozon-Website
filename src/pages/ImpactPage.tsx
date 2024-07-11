@@ -10,12 +10,12 @@ return (
     <RootLayout>
         <div className="bg-white px-4 md:px-20 pb-10">
             <h1 className="mx-2 mt-4 font-Inter text-[#130E0A] font-[700] text-xl  w-fit">
-                Nombre d’arbres plantés
+                Impact écologique par unite et par mois
             </h1>
             <Card className="mt-2">
                 <LineChart />
             </Card>
-            <h1 className="mx-2 mt-10 font-Inter text-[#130E0A] font-[700] text-xl  w-fit">
+            <h1 className="mx-2 md:mt-10 mt-20 font-Inter text-[#130E0A] font-[700] text-xl  w-fit">
                 Nombres de déchets recyclés
             </h1>
             <div className="mt-5 space-y-8">

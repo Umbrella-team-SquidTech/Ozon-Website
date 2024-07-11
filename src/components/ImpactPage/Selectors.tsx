@@ -7,25 +7,65 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import axios from "@/config/axios";
+import { useEffect, useState } from "react";
 
-const Selectors = () => {
+  interface SelectorsProps {
+    settype: (value: string) => void;
+    type: string;
+  }
+const Selectors = (
+  { settype, type }: SelectorsProps
+) => {
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    axios.get("/event_types",
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }
+    ).then((response) => {
+     
+      setData(response.data.data);
+
+    }).catch((error) => {
+      console.log(error);
+    }
+    )
+  }),[]
+
+
+  const handleChange = (value:string) => {
+    console.log(value);
+    settype(value);
+  };
+
   return (
     <div className="w-full md:w-auto">
-      <Select>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Select a fruit" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Fruits</SelectLabel>
-            <SelectItem value="apple">Apple</SelectItem>
-            <SelectItem value="banana">Banana</SelectItem>
-            <SelectItem value="blueberry">Blueberry</SelectItem>
-            <SelectItem value="grapes">Grapes</SelectItem>
-            <SelectItem value="pineapple">Pineapple</SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+      {
+        data && (
+          <Select 
+     
+          onValueChange={handleChange}
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Unite" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+
+                {data.map((item: any) => (
+                  <SelectItem key={item.id} value={item.id}>
+                    {item.unit}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        )
+      }
     </div>
   );
 };

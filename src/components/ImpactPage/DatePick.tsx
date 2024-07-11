@@ -32,13 +32,12 @@ const DatePick = (
       }
       
       const [date, setDate] = useState<Date>()
-      console.log(date,"daete");
       useEffect(() => {
         setFormattedDate(formatDate(date?.toISOString() || ""));
       }, [date]);
       console.log(formattedDate, "formattedDateweeee");
   return (
-    <div>
+    <div className='mb-2'>
         <Popover>
       <PopoverTrigger asChild>
         <Button
