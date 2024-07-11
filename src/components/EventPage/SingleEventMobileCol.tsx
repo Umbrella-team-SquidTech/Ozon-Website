@@ -2,6 +2,7 @@ import CheckIcon from "@/assets/checkCircle.svg";
 import ImageBackground from "@/assets/placeholder.png";
 import ShareandJoin from "@/components/HomePage/ShareandJoin";
 import { Button } from "../ui/button";
+import { compareDates } from "@/utils/formatDate";
 interface prop {
   event: EventI;
 }
@@ -24,7 +25,9 @@ const SingleEventMobileCol = ({ event }: prop) => {
             {event.participations > 1
               ? `${event.participations} présents`
               : `${event.participations} présent`}
-            . Evenement disponible hard coded
+            {!compareDates(event.start, new Date().toISOString())
+              ? "Evenement passé"
+              : "Evenement à venir"}
           </p>
         </div>
         <Button className=" self-center  bg-SecondaryColor  hover:bg-PrimaryColor">
@@ -37,7 +40,7 @@ const SingleEventMobileCol = ({ event }: prop) => {
           alt="eventBackground"
           className="rounded-r-xl w-full h-full object-cover  "
         />
-        <ShareandJoin />
+        <ShareandJoin suggestedEvent={event} />
       </div>
     </div>
   );

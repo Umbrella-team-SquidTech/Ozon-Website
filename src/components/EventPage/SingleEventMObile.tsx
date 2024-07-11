@@ -5,6 +5,7 @@ import { CircleArrowRight, Share } from "lucide-react";
 import { useEffect, useState } from "react";
 import placeholderImage from "@/assets/placeholder.png";
 import { Link } from "react-router-dom";
+import { compareDates } from "@/utils/formatDate";
 
 interface props {
   event: EventI;
@@ -45,20 +46,22 @@ const SingleEventMObile = ({ event }: props) => {
             {event.participations > 1
               ? `${event.participations} présents`
               : `${event.participations} présent`}
-            . Evenement disponible hard coded
+            .{" "}
+            {!compareDates(event.start, new Date().toISOString())
+              ? "Evenement passé"
+              : "Evenement à venir"}
           </p>
         </div>
       </div>
       <div className="w-full flex flex-col items-center pt-2 space-y-2">
-        
-        <Link to={`/events/${event.id}`} >
-        <Button className=" space-x-2 bg-SecondaryColor hover:bg-PrimaryColor">
-          <CircleArrowRight
-            size={20}
-            strokeWidth={3}
-            className="hidden md:block"
-          />
-          Rejoindre l'évènement
+        <Link to={`/events/${event.id}`}>
+          <Button className=" space-x-2 bg-SecondaryColor hover:bg-PrimaryColor">
+            <CircleArrowRight
+              size={20}
+              strokeWidth={3}
+              className="hidden md:block"
+            />
+            Rejoindre l'évènement
           </Button>
         </Link>
       </div>
