@@ -8,8 +8,11 @@ import { useState } from "react";
 import hred from "@/assets/HomePage/ReadHeart.svg";
 import axios from "@/config/axios";
 import useToken from "@/hooks/useToken";
+import useSound from "use-sound";
+import likeSound from "@/assets/sounds/like_effect.mp3";
 import { useToast } from "@/components/ui/use-toast";
 import { RWebShare } from "react-web-share";
+
 // add props interface
 interface Props {
   postInfo: {
@@ -35,8 +38,11 @@ const PostReactions = ({
   const token = useToken();
   const [isLiked, setIsLiked] = useState(postInfo.liked);
   const [likeCount, setLikeCount] = useState(postInfo.like_count);
+  const [play] = useSound(likeSound);
+
 
   const handleRepost = () => {
+    play();
     axios
       .post(
         `/posts/${postInfo.postId}/repost`,
@@ -52,8 +58,6 @@ const PostReactions = ({
         toast({
           className: "bg-PrimaryColor text-white",
           title: "Post Reposter ",
-          
-         
         });
       })
       .catch((err) => {
@@ -62,9 +66,12 @@ const PostReactions = ({
   };
 
   const handleClick = () => {
+    if (!isLiked) play();
     const newLikeStatus = !isLiked;
-    setIsLiked(newLikeStatus);
-
+    setIsLiked((prev) => !prev);
+    setLikeCount((prevCount) =>
+      newLikeStatus ? prevCount + 1 : prevCount - 1
+    );
     axios
       .post(
         `/posts/${postInfo.postId}/like`,
@@ -75,16 +82,9 @@ const PostReactions = ({
           },
         }
       )
-      .then((res) => {
-        console.log(res);
-        setLikeCount((prevCount) =>
-          newLikeStatus ? prevCount + 1 : prevCount - 1
-        );
-      })
+      .then((res) => {})
       .catch((err) => {
-        console.log(err);
-
-        setIsLiked(!newLikeStatus);
+        setIsLiked((prev) => !prev);
       });
   };
 

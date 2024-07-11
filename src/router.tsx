@@ -8,7 +8,6 @@ import Events from "./pages/EventsPage";
 import EventDetails from "./pages/EventDetails"; 
 import MapPage from "./pages/MapPage";
 import CreatePostmobile from "./pages/CreatePostmobile";
-import CreateEvent from "./pages/CreateEvent";
 const Router = createBrowserRouter([
   {
     path: "/",
@@ -45,10 +44,6 @@ const Router = createBrowserRouter([
   {
     path: "/events/:id",
     element: <EventDetails />,
-  },
-  {
-    path: "/createEvent",
-    element:<CreateEvent/>
   },
   {
     path:"/createPost",

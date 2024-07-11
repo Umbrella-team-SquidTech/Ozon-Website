@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
+import LoadingAnimation from "@/components/LoadingAnimation";
 import ScrollToTop from "@/components/ScrollToTop";
 
 
@@ -86,7 +87,7 @@ export default function HomePage() {
   }
 
   if (isLoading) {
-    return <div>loading...</div>;
+    return <LoadingAnimation />;
   }
   if (loadingPosts) {
     return (
