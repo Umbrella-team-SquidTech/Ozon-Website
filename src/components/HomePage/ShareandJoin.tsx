@@ -1,6 +1,6 @@
 import { Share } from "lucide-react";
 import { CircleArrowRight } from "lucide-react";
-
+import { RWebShare } from "react-web-share";
 const SHareandJoin = () => {
   return (
     <div
@@ -8,6 +8,13 @@ const SHareandJoin = () => {
       md:bg-inherit
     rounded-full md:rounded-none "
     >
+                  <RWebShare
+                data={{
+                  text: "Partager",
+                  url: "https://www.google.com/",
+                  title: "Partager",
+                }}  
+              > 
       <button className="md:bg-white/35 flex flex-row items-center justify-center gap-2 rounded-xl py-1 md:px-3 px-1">
         <Share size={20} strokeWidth={3} className="hidden md:block" />
         <Share
@@ -20,6 +27,7 @@ const SHareandJoin = () => {
           Partager l'évènement
         </p>
       </button>
+      </RWebShare> 
       <button className="md:bg-white/35 flex flex-row items-center justify-center gap-2 rounded-xl py-1 md:px-3  px-1">
         <CircleArrowRight
           size={20}

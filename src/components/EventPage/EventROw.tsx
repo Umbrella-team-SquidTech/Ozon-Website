@@ -4,7 +4,7 @@ import placeholderImage from "@/assets/placeholder.png";
 import { Button } from "../ui/button";
 import { CircleArrowRight, Share } from "lucide-react";
 import { Link } from "react-router-dom";
-
+import { RWebShare } from "react-web-share";
 interface prop {
   event: EventI;
 }
@@ -50,7 +50,14 @@ const EventROw = ({ event }: prop) => {
                   Voir les détails
                 </p>
               </Button>
-              <Button
+              <RWebShare
+                data={{
+                  text: "Partager",
+                  url: "https://www.google.com/",
+                  title: "Partager",
+                }}  
+              >
+                              <Button
                 className="w-full space-x-2    border border-[#2D3A3A] hover:bg-[#2D3A3A] group "
                 variant={"outline"}
               >
@@ -64,6 +71,7 @@ const EventROw = ({ event }: prop) => {
                   Partager cet l'évènement
                 </p>
               </Button>
+              </RWebShare>
             </div>
           </div>
         </Card>

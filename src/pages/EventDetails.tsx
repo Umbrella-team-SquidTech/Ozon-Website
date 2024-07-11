@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import axios from "@/config/axios";
 import placeholder from "@/assets/placeholder.png";
 import EventDetailsSkeleton from "@/components/Skeletons/EventDetailsSkeleton";
+import { RWebShare } from "react-web-share";
 const EventDetails = () => {
   const { id } = useParams<{ id: string }>();
   const token = useToken();
@@ -152,10 +153,18 @@ const EventDetails = () => {
             </div>
           </div>
           <div className="flex flex-row gap-4 items-center justify-end py-4">
+          <RWebShare
+                data={{
+                  text: "Partager",
+                  url: "https://www.google.com/",
+                  title: "Partager",
+                }}  
+              >  
             <button className="flex flex-row gap-2 items-center text-SecondaryColor underline">
               <Share size={20} strokeWidth={3} className="hidden md:block" />
               Partager
             </button>
+            </RWebShare>
             {isParticipating ? (
               <Button className=" space-x-2 " variant="destructive" onClick={handleParticipation}>
                 <p className=" font-Inter font-[700] text-base hidden md:block"
