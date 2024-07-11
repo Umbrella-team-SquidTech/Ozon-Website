@@ -4,7 +4,7 @@ import {
   Repeat2,
   SquareArrowOutUpRight,
 } from "lucide-react";
-import {  useState } from "react";
+import { useState } from "react";
 import hred from "@/assets/HomePage/ReadHeart.svg";
 import axios from "@/config/axios";
 import useToken from "@/hooks/useToken";
@@ -16,13 +16,18 @@ interface Props {
     comments_count: number;
     postId: string;
     liked: boolean;
-  },
-  setShowComments: (value: boolean) => void,
-  showComments: boolean,
-  commentsCount: number,
+  };
+  setShowComments: (value: boolean) => void;
+  showComments: boolean;
+  commentsCount: number;
 }
 
-const PostReactions = ({ postInfo ,setShowComments,showComments,commentsCount}: Props) => {
+const PostReactions = ({
+  postInfo,
+  setShowComments,
+  showComments,
+  commentsCount,
+}: Props) => {
   const token = useToken();
   const [isLiked, setIsLiked] = useState(postInfo.liked);
   const [likeCount, setLikeCount] = useState(postInfo.like_count);
@@ -68,10 +73,16 @@ const PostReactions = ({ postInfo ,setShowComments,showComments,commentsCount}: 
           )}
           {likeCount}
         </button>
-        <button className="flex flex-row justify-center items-center gap-1"
+        <button
+          className="flex flex-row justify-center items-center gap-1"
           onClick={() => setShowComments(!showComments)}
         >
-          <MessageCircle className="w-6 h-6 text-[#2D3A3A]" />
+          {!showComments ? (
+            <MessageCircle className="w-6 h-6 text-[#2D3A3A]" />
+          ) : (
+            <MessageCircle className="w-6 h-6 text-PrimaryColor" />
+          )}
+          {/* <MessageCircle className="w-6 h-6 text-[#2D3A3A]" /> */}
           {commentsCount}
         </button>
         <button className="flex flex-row justify-center items-center gap-1">
