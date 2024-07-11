@@ -60,7 +60,7 @@ export default function Profile() {
     <Popover>
       <PopoverTrigger>
         <img
-          src={UserProfile}
+          src={user?.profile_pic}
           className=" rounded-3xl w-12 h-11 md:flex justify-center items-center cursor-pointer hidden"
         />
       </PopoverTrigger>

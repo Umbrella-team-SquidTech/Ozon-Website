@@ -28,7 +28,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useToast } from "@/components/ui/use-toast";
-import eventTypes from "@/data/eventTypes.json";
 import {
   Form,
   FormControl,
@@ -41,6 +40,7 @@ import useToken from "@/hooks/useToken";
 const CreateEvent = () => {
   const { geoLocation } = useGeoLoactionStore();
   const [images, setImages] = useState<string[]>([]);
+  const [eventTypes, setEventTypes] = useState<EventTypeI[] | null>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
@@ -164,6 +164,20 @@ const CreateEvent = () => {
     uploadWithImages(images, values);
     setLoading(false);
   }
+
+  useEffect(() => {
+    customAxios
+      .get("/event_types", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+
+        setEventTypes(res.data.data);
+      });
+  }, []);
 
   return (
     <RootLayout>
@@ -325,7 +339,7 @@ const CreateEvent = () => {
                               <SelectValue placeholder="Select event type" />
                             </SelectTrigger>
                             <SelectContent>
-                              {eventTypes.map((t, i) => {
+                              {eventTypes?.map((t: EventTypeI, i) => {
                                 return (
                                   <SelectItem value={t.id.toString()}>
                                     {t.name}

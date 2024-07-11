@@ -1,4 +1,3 @@
-import UserProfile from "@/assets/UserProfile.png";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import imageUpload from "@/assets/HomePage/imageComposition.svg";
@@ -10,16 +9,17 @@ import { generateSignature, generateTimestamp } from "@/utils/cloudinary";
 import useToken from "@/hooks/useToken";
 import { useToast } from "../ui/use-toast";
 import useSound from "use-sound";
-
 import likeSound from "@/assets/sounds/posting_effect.mp3";
+import useUser from "@/hooks/useUser";
 
 const CreatePost = () => {
   const [images, setImages] = useState<string[]>([]);
-  const token = useToken();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [postContent, setPostContent] = useState("");
   const [play] = useSound(likeSound);
+  const token = useToken();
+  const { user } = useUser(token);
 
   function uploadWithImages(images: string[]) {
     const formData = new FormData();
@@ -163,7 +163,7 @@ const CreatePost = () => {
     <div className="hidden md:block mt-4  w-full border-2 border-black/25 rounded-3xl p-6 space-y-3">
       <div className="flex flex-row items-center gap-6 ">
         <img
-          src={UserProfile}
+          src={user?.profile_pic}
           className=" rounded-3xl size-12 md:flex justify-center items-center hidden "
         />
         <Textarea
