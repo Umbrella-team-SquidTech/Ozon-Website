@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import LoadingAnimation from "@/components/LoadingAnimation";
 import ScrollToTop from "@/components/ScrollToTop";
 import Tip from "@/components/HomePage/Tip";
+import DayTip from "@/components/HomePage/DayTip";
 
 export default function HomePage() {
   const token = useToken();
@@ -127,15 +128,16 @@ export default function HomePage() {
     <RootLayout>
       <div className="p-5 pt-0 md:px-20">
         <SuggestedEvent suggestedEvent={suggestedEvent} />
-        <Tip post={tip} />
+        <DayTip post={tip} />
         <CreatePost />
         <div className="pb-[70px] md:pb-0">
-          {posts.map((post: PostI) => (
-            <SinglePost
-              key={post.id}
-              post={post}
-            />
-          ))}
+          {posts.map((post: PostI) =>
+            post.type === "tip" ? (
+              <Tip post={post} />
+            ) : (
+              <SinglePost post={post} />
+            )
+          )}
         </div>
       </div>
       {isVisible && <ScrollToTop scrollToTop={scrollToTop} />}

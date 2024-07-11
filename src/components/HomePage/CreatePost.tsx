@@ -12,6 +12,7 @@ import { useToast } from "../ui/use-toast";
 import useSound from "use-sound";
 
 import likeSound from "@/assets/sounds/posting_effect.mp3";
+import { Label } from "../ui/label";
 
 const CreatePost = () => {
   const [images, setImages] = useState<string[]>([]);
@@ -19,6 +20,7 @@ const CreatePost = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [postContent, setPostContent] = useState("");
+  const [postType, setPostType] = useState(false);
   const [play] = useSound(likeSound);
   const handlePost = () => {
     setLoading(true);
@@ -63,7 +65,7 @@ const CreatePost = () => {
               {
                 content: postContent,
                 images: [imageUrl],
-                type: "post",
+                type: postType ? "tip" : "post",
               },
               {
                 headers: {
@@ -143,25 +145,47 @@ const CreatePost = () => {
             />
             <label
               htmlFor="imageUpload"
-              className="flex flex-row  items-center cursor-pointer"
-            >
-              <img src={imageUpload} alt="" />
+              className="flex flex-row  items-center cursor-pointer">
+              <img
+                src={imageUpload}
+                alt=""
+              />
               <p className=" font-Inter font-[600] text-base">Photos</p>
             </label>
           </div>
         )}
+
+        <div className="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700 pr-5">
+          <input
+            id="bordered-checkbox-1"
+            type="checkbox"
+            name="type"
+            checked={postType}
+            onChange={() => setPostType((prev) => !prev)}
+            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <label
+            htmlFor="bordered-checkbox-1"
+            className="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Conseil
+          </label>
+        </div>
         <div>
-          <ImageGallery images={images} setImages={setImages} />
+          <ImageGallery
+            images={images}
+            setImages={setImages}
+          />
         </div>
         {loading ? (
-          <Button className="bg-SecondaryColor rounded-full" disabled={true}>
+          <Button
+            className="bg-SecondaryColor rounded-full"
+            disabled={true}>
             Publication...
           </Button>
         ) : (
           <Button
             className="bg-PrimaryColor hover:bg-SecondaryColor rounded-full"
-            onClick={handlePost}
-          >
+            onClick={handlePost}>
             Publier
           </Button>
         )}
