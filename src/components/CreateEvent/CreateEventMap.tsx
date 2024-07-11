@@ -80,7 +80,7 @@ export default function CreateEventMap(){
 
         <NavigationControl />
       </Map>
-      <ControlPanel events={events} />
+      {/* <ControlPanel events={events} /> */}
     </>
   );
 }
