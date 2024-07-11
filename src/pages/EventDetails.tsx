@@ -19,6 +19,7 @@ import axios from "@/config/axios";
 import placeholder from "@/assets/placeholder.png";
 import EventDetailsSkeleton from "@/components/Skeletons/EventDetailsSkeleton";
 import { RWebShare } from "react-web-share";
+import { compareDates } from "@/utils/formatDate";
 const EventDetails = () => {
   const { id } = useParams<{ id: string }>();
   const token = useToken();
@@ -52,7 +53,6 @@ const EventDetails = () => {
         }
         console.log(err);
       });
-      
   }, []);
 
   if (loadingEvent) {
@@ -63,23 +63,27 @@ const EventDetails = () => {
     );
   }
   const handleParticipation = () => {
-    axios.post(`/events/${id}/participate`, {}, { headers: { Authorization: `Bearer ${token}` } })
-    .then(() => {
-      setIsParticipating(!isParticipating);
-
-    })
-    .catch((err) => {
-      console.log(err);
-      if (err.response.status === 401) {
-        navigate("/login");
-        toast({
-          title: "Veuillez vous reconnecter",
-          description: "Votre session a expiré",
-          variant: "destructive",
-        });
-      }
-    });
-  }
+    axios
+      .post(
+        `/events/${id}/participate`,
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      .then(() => {
+        setIsParticipating(!isParticipating);
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response.status === 401) {
+          navigate("/login");
+          toast({
+            title: "Veuillez vous reconnecter",
+            description: "Votre session a expiré",
+            variant: "destructive",
+          });
+        }
+      });
+  };
 
   return (
     <RootLayout>
@@ -133,7 +137,13 @@ const EventDetails = () => {
                     {event!.participations > 1
                       ? `${event?.participations} présents`
                       : `${event?.participations} présent`}
-                    . Evenement disponible hard coded
+                    .{" "}
+                    {!compareDates(
+                      event?.start as string,
+                      new Date().toISOString()
+                    )
+                      ? "Evenement passé"
+                      : "Evenement à venir"}
                   </p>
                 </div>
               </div>
@@ -151,35 +161,45 @@ const EventDetails = () => {
                 </CardContent>
               </Card>
             </div>
-         
-          <div className="flex flex-row gap-4 items-center justify-end py-4 ">
-          <RWebShare
+
+            <div className="flex flex-row gap-4 items-center justify-end py-4 ">
+              <RWebShare
                 data={{
                   text: "Partager",
                   url: "https://www.google.com/",
                   title: "Partager",
-                }}  
-              >  
-            <button className="flex flex-row gap-2 items-center text-SecondaryColor underline">
-              <Share size={20} strokeWidth={3} className="hidden md:block" />
-              Partager
-            </button>
-            </RWebShare>
-            {isParticipating ? (
-              <Button className=" space-x-2 " variant="destructive" onClick={handleParticipation}>
-                <p className=" font-Inter font-[700] text-base  md:block"
+                }}
+              >
+                <button className="flex flex-row gap-2 items-center text-SecondaryColor underline">
+                  <Share
+                    size={20}
+                    strokeWidth={3}
+                    className="hidden md:block"
+                  />
+                  Partager
+                </button>
+              </RWebShare>
+              {isParticipating ? (
+                <Button
+                  className=" space-x-2 "
+                  variant="destructive"
+                  onClick={handleParticipation}
                 >
-                  Annuler la participation
-                </p>
-              </Button>
-            ) : (
-              <Button className=" space-x-2 bg-SecondaryColor hover:bg-PrimaryColor" onClick={handleParticipation}>
-                <p className=" font-Inter font-[700] text-base  md:block">
-                  Prendre une place
-                </p>
-              </Button>
-            )}
-          </div>
+                  <p className=" font-Inter font-[700] text-base  md:block">
+                    Annuler la participation
+                  </p>
+                </Button>
+              ) : (
+                <Button
+                  className=" space-x-2 bg-SecondaryColor hover:bg-PrimaryColor"
+                  onClick={handleParticipation}
+                >
+                  <p className=" font-Inter font-[700] text-base  md:block">
+                    Prendre une place
+                  </p>
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>

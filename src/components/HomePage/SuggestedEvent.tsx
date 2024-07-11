@@ -1,9 +1,7 @@
 import CheckIcon from "@/assets/checkCircle.svg";
-import ImageBackground from "@/assets/HomePage/EventBackground.png";
+import placeholder from "@/assets/placeholder.png";
 import ShareandJoin from "@/components/HomePage/ShareandJoin";
-import axios from "@/config/axios";
 import { formatDate } from "@/utils/formatDate";
-import { useEffect, useState } from "react";
 
 interface prop {
   suggestedEvent: EventI | null;
@@ -11,7 +9,7 @@ interface prop {
 
 const SuggestedEvent = ({ suggestedEvent }: prop) => {
   return (
-    <div className="mt-4 w-full  border border-[#BAB8B8] h-60 rounded-xl flex flex-row justify-between">
+    <div className="mt-4 w-full border border-[#BAB8B8]h-40 md:h-60 rounded-xl flex flex-row justify-between">
       <div className="w-4/6 md:w-1/2 p-4 md:p-7 font-Inter flex flex-col justify-between gap-2 md:gap-0">
         <div className="space-y-1">
           <p className="text-[#130E0A]/50 font-[700] text-xs md:text-base  ">
@@ -33,9 +31,7 @@ const SuggestedEvent = ({ suggestedEvent }: prop) => {
       <div className="w-2/6 md:w-2/5 h- relative">
         <img
           src={
-            suggestedEvent?.images[0]
-              ? suggestedEvent.images[0]
-              : ImageBackground
+            suggestedEvent?.images[0] ? suggestedEvent.images[0] : placeholder
           }
           alt="eventBackground"
           className="rounded-r-xl w-full h-full object-fit  "

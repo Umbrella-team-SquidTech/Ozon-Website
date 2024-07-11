@@ -1,4 +1,3 @@
-import UserProfile from "@/assets/UserProfile.png";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import imageUpload from "@/assets/HomePage/imageComposition.svg";
@@ -10,16 +9,19 @@ import { generateSignature, generateTimestamp } from "@/utils/cloudinary";
 import useToken from "@/hooks/useToken";
 import { useToast } from "../ui/use-toast";
 import useSound from "use-sound";
-
 import likeSound from "@/assets/sounds/posting_effect.mp3";
+import { Label } from "../ui/label";
+import useUser from "@/hooks/useUser";
 
 const CreatePost = () => {
   const [images, setImages] = useState<string[]>([]);
-  const token = useToken();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [postContent, setPostContent] = useState("");
+  const [postType, setPostType] = useState(false);
   const [play] = useSound(likeSound);
+  const token = useToken();
+  const { user } = useUser(token);
   const [isPosting, setIsPosting] = useState(false);
 
   function uploadWithImages(images: string[]) {
@@ -63,6 +65,20 @@ const CreatePost = () => {
               images: [imageUrl],
               type: "post",
             },
+
+          }
+        )
+        .then((res) => {
+          const imageUrl = res.data.secure_url;
+
+          customAxios
+            .post(
+              "/posts",
+              {
+                content: postContent,
+                images: [imageUrl],
+                type: postType ? "tip" : "post",
+
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -170,7 +186,7 @@ const CreatePost = () => {
     <div className="hidden md:block mt-4  w-full border-2 border-black/25 rounded-3xl p-6 space-y-3">
       <div className="flex flex-row items-center gap-6 ">
         <img
-          src={UserProfile}
+          src={user?.profile_pic}
           className=" rounded-3xl size-12 md:flex justify-center items-center hidden "
         />
         <Textarea
@@ -194,16 +210,38 @@ const CreatePost = () => {
             />
             <label
               htmlFor="imageUpload"
-              className="flex flex-row  items-center cursor-pointer"
-            >
-              <img src={imageUpload} alt="" />
+              className="flex flex-row  items-center cursor-pointer">
+              <img
+                src={imageUpload}
+                alt=""
+              />
               <p className=" font-Inter font-[600] text-base">Photos</p>
             </label>
           </div>
         )}
-        <div>
-          <ImageGallery images={images} setImages={setImages} />
+
+        <div className="flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700 pr-5">
+          <input
+            id="bordered-checkbox-1"
+            type="checkbox"
+            name="type"
+            checked={postType}
+            onChange={() => setPostType((prev) => !prev)}
+            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          />
+          <label
+            htmlFor="bordered-checkbox-1"
+            className="w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            Conseil
+          </label>
         </div>
+        <div>
+          <ImageGallery
+            images={images}
+            setImages={setImages}
+          />
+        </div>
+
         {isPosting ? (
           <Button className="bg-SecondaryColor rounded-full space-x-2" disabled={true}>
                               <div role="status">
@@ -229,8 +267,7 @@ const CreatePost = () => {
         ) : (
           <Button
             className="bg-PrimaryColor hover:bg-SecondaryColor rounded-full"
-            onClick={handlePost}
-          >
+            onClick={handlePost}>
             Publier
           </Button>
         )}

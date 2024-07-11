@@ -12,6 +12,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
 import LoadingAnimation from "@/components/LoadingAnimation";
 import ScrollToTop from "@/components/ScrollToTop";
+import Tip from "@/components/HomePage/Tip";
+import DayTip from "@/components/HomePage/DayTip";
 
 export default function HomePage() {
   const token = useToken();
@@ -19,6 +21,7 @@ export default function HomePage() {
   const { toast } = useToast();
   const [loadingPosts, setLoadinPosts] = useState(true);
   const [posts, setPosts] = useState([]);
+  const [tip, setTip] = useState(null);
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
   const [suggestedEvent, setSuggestedEvent] = useState(null);
@@ -42,7 +45,16 @@ export default function HomePage() {
       window.removeEventListener("scroll", toggleVisibility);
     };
   }, []);
-
+  useEffect(() => {
+    axios
+      .get("/posts/tip", { headers: { Authorization: `Bearer ${token}` } })
+      .then((res) => {
+        setTip(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   useEffect(() => {
     setLoadinPosts(true);
     const getPosts = () => {
@@ -116,11 +128,16 @@ export default function HomePage() {
     <RootLayout>
       <div className="p-5 pt-0 md:px-20">
         <SuggestedEvent suggestedEvent={suggestedEvent} />
+        <DayTip post={tip} />
         <CreatePost />
         <div className="pb-[70px] md:pb-0">
-          {posts.map((post: PostI) => (
-            <SinglePost key={post.id} post={post} />
-          ))}
+          {posts.map((post: PostI) =>
+            post.type === "tip" ? (
+              <Tip post={post} />
+            ) : (
+              <SinglePost post={post} />
+            )
+          )}
         </div>
       </div>
       {isVisible && <ScrollToTop scrollToTop={scrollToTop} />}
