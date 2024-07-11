@@ -84,7 +84,10 @@ export default function Profile() {
           </div>
         </div>
         <div className="flex flex-col gap-2">
-          <Link to="/profile" className="hover:bg-gray-200 p-2 rounded-lg">
+          <Link
+            to={"/users/" + user?.id}
+            className="hover:bg-gray-200 p-2 rounded-lg"
+          >
             Profile
           </Link>
           <button
