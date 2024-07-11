@@ -55,12 +55,10 @@ const Router = createBrowserRouter([
   {
     path: "/users/:id",
     element: <ProfilePage />,
-    path: "/createEvent",
-    element: <CreateEvent />,
   },
   {
-    path:"/createPost",
-    element:<CreatePostmobile/>
+    path: "/createEvent",
+    element: <CreateEvent />,
   },
   {
     path: "*",
