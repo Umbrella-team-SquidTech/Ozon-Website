@@ -11,6 +11,7 @@ interface props {
   postGallery: string[];
 }
 const PostCarousel = ({ postGallery }: props) => {
+  if (!postGallery.length) return null;
   return (
     <Carousel className="relative pt-2 md:w-2/6">
       <CarouselPrevious className="text-PrimaryColor bg-white/80 absolute left-2 z-10" />
