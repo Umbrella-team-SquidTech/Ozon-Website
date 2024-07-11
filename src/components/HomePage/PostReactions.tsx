@@ -9,7 +9,7 @@ import hred from "@/assets/HomePage/ReadHeart.svg";
 import axios from "@/config/axios";
 import useToken from "@/hooks/useToken";
 import { useToast } from "@/components/ui/use-toast";
-
+import { RWebShare } from "react-web-share";
 // add props interface
 interface Props {
   postInfo: {
@@ -92,22 +92,22 @@ const PostReactions = ({
     <div className="flex justify-between items-center mt-4">
       <div className="flex items-center space-x-4">
         <button
-          className="flex flex-row justify-center items-center gap-1"
+          className="flex flex-row justify-center items-center gap-1 group hover:text-red-500"
           onClick={handleClick}
         >
           {isLiked ? (
             <img src={hred} alt="heart" className="size-6" />
           ) : (
-            <Heart className="w-6 h-6 text-[#2D3A3A]" />
+            <Heart className="w-6 h-6 text-[#2D3A3A] group-hover:text-red-500" />
           )}
           {likeCount}
         </button>
         <button
-          className="flex flex-row justify-center items-center gap-1"
+          className="flex flex-row justify-center items-center gap-1 group hover:text-PrimaryColor"
           onClick={() => setShowComments(!showComments)}
         >
           {!showComments ? (
-            <MessageCircle className="w-6 h-6 text-[#2D3A3A]" />
+            <MessageCircle className="w-6 h-6 text-[#2D3A3A] group-hover:text-PrimaryColor" />
           ) : (
             <MessageCircle className="w-6 h-6 text-PrimaryColor" />
           )}
@@ -116,16 +116,27 @@ const PostReactions = ({
         </button>
         {/* repost component */}
         <button
-          className="flex flex-row justify-center items-center gap-1"
+          className="flex flex-row justify-center items-center gap-1 group hover:text-blue-400"
           onClick={handleRepost}
         >
-          <Repeat2 className="w-6 h-6 text-[#2D3A3A]" />
+          <Repeat2 className="w-6 h-6 text-[#2D3A3A] group-hover:text-blue-400" />
           {postInfo.reposts}
         </button>
         {/* share component  */}
+        <RWebShare
+                data={{
+                    text: "Web Share - GfG",
+                    url: "http://localhost:3000",
+                    title: "GfG",
+                }}
+                onClick={() =>
+                    console.log("shared successfully!")
+                }
+            >
         <button>
-          <SquareArrowOutUpRight className="w-6 h-6 text-[#2D3A3A]" />
+          <SquareArrowOutUpRight className="w-6 h-6 text-[#2D3A3A] hover:text-blue-400" />
         </button>
+        </RWebShare>
       </div>
     </div>
   );
