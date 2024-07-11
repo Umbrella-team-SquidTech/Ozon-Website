@@ -5,4 +5,8 @@ declare interface UserI {
   last_name: string;
   profile_pic: string;
   certified?: number;
+  admin?: number;
+  points?: number;
+  grade?: GradeI;
+  created_at?: string;
 }

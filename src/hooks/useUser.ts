@@ -17,7 +17,7 @@ export default function useUser(token: string) {
         },
       })
       .then((res) => {
-        setUser(res.data);
+        setUser(res.data.data);
         setIsLoading(false);
       })
       .catch((err) => {
