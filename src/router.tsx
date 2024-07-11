@@ -16,7 +16,7 @@ import { NotFound } from "./pages/not-found";
 const Router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Home</div>,
+    element: <LoginPage />,
   },
   {
     path: "/login",
