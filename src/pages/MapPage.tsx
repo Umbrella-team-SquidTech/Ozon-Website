@@ -4,13 +4,16 @@ import { useRef, useEffect, useState } from "react";
 import EventPopup from "@/components/MapPage/EventPopup";
 import mapboxgl from "mapbox-gl";
 import RootLayout from "@/components/RootLayout";
-// import { createRoot } from "react-dom/client";
 import axios from "axios";
 import customAxios from "@/config/axios";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { generateFeatures } from "@/utils/geojson";
+import { useToast } from "@/components/ui/use-toast";
+import useToken from "@/hooks/useToken";
 function MapPage() {
-  mapboxgl.accessToken = "pk.eyJ1IjoienZraTEiLCJhIjoiY2x5ZWNhZXRpMDExcDJrcW8zaTlubDFlMSJ9.JKxu32laTXbJs1hmX0-1VA";
+  const { toast } = useToast();
+  const token = useToken();
+  mapboxgl.accessToken = process.env.VITE_MAPBOX_TOKEN as string;
 
   const mapContainer = useRef(null);
   const map = useRef<mapboxgl.Map | null>(null);
@@ -32,15 +35,23 @@ function MapPage() {
     participations: number;
   }>(null);
 
-
-
   useEffect(() => {
     customAxios
-      .get("/events")
+      .get("/events", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         setEvents(res.data.data);
       })
       .catch((err) => {
+        toast({
+          title: "Erreur dans la récupération des événements",
+          description:
+            "Une erreur s'est produite lors de la récupération des événements. Veuillez réessayer.",
+          variant: "destructive",
+        });
         console.log(err);
       });
 
@@ -54,8 +65,8 @@ function MapPage() {
         console.log(error);
       });
 
-      if (map.current) return;
-      // creating the map
+    if (map.current) return;
+    // creating the map
     map.current = new mapboxgl.Map({
       container: mapContainer.current || document.createElement("div"),
       style: "mapbox://styles/mapbox/streets-v12",
@@ -64,7 +75,6 @@ function MapPage() {
     });
 
     map.current.addControl(new mapboxgl.NavigationControl());
-
   }, []);
 
   useEffect(() => {
@@ -72,12 +82,12 @@ function MapPage() {
       map.current.setCenter([longOfUSer, lattOfUser]);
 
       const geoJsonData = generateFeatures(events);
-// creating the markers from generated geojson data 
-      geoJsonData.features.forEach(feature => {
-        const el = document.createElement('div');
-        el.className = 'marker';
+      // creating the markers from generated geojson data
+      geoJsonData.features.forEach((feature) => {
+        const el = document.createElement("div");
+        el.className = "marker";
 
-        el.addEventListener('click', () => {
+        el.addEventListener("click", () => {
           setSelectedEvent(feature.properties);
         });
 
@@ -87,7 +97,6 @@ function MapPage() {
             .addTo(map.current);
         }
       });
-
     }
   }, [events, longOfUSer, lattOfUser]);
 
@@ -95,12 +104,17 @@ function MapPage() {
     <RootLayout>
       <div className="w-full h-screen pt-[80px] overflow-y-hidden">
         <div ref={mapContainer} className="w-full h-full" />
-        {selectedEvent && <EventPopup event={selectedEvent} onClose={() => setSelectedEvent(null)} />}
+        {selectedEvent && (
+          <EventPopup
+            event={selectedEvent as EventI}
+            onClose={() => {
+              setSelectedEvent(null);
+            }}
+          />
+        )}
       </div>
     </RootLayout>
   );
 }
-
-
 
 export default MapPage;
