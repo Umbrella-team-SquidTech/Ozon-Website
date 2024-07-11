@@ -6,7 +6,7 @@ declare interface UserI {
   profile_pic: string;
   certified?: number;
   admin?: number;
-  points?: number;
+  points: number;
   grade?: GradeI;
   created_at?: string;
 }
