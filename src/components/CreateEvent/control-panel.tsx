@@ -26,7 +26,7 @@ function ControlPanel(props: { events: Record<string, LngLat> }) {
   }, [events.onDragEnd]); // Dependency array includes events.onDragEnd
 
   return (
-    <div className="control-panel">
+    <div className="control-panel invisible">
       <h3>Draggable Marker</h3>
       <p>Try dragging the marker to another location.</p>
       <div>
@@ -42,15 +42,6 @@ function ControlPanel(props: { events: Record<string, LngLat> }) {
             )}
           </div>
         ))}
-      </div>
-      <div className="source-link">
-        <a
-          href="https://github.com/visgl/react-map-gl/tree/7.1-release/examples/draggable-markers"
-          target="_new"
-          rel="noopener noreferrer"
-        >
-          View Code ↗
-        </a>
       </div>
     </div>
   );
