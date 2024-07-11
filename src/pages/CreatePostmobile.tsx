@@ -1,7 +1,6 @@
 import PostForm from "@/components/CreatePostMobile/PostForm";
 import RootLayout from "@/components/RootLayout";
 
-
 const CreatePostmobile = () => {
   return (
     <RootLayout>
@@ -10,8 +9,6 @@ const CreatePostmobile = () => {
           Publier un post
         </h1>
         <PostForm />
-        
-
       </div>
     </RootLayout>
   );

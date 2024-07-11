@@ -29,14 +29,14 @@ export default function Profile() {
       )
       .then(() => {
         removeUser();
-        navigate("/login");
-      })
-      .catch(() => {
         toast({
-          title: "Erreur",
-          description: "Une erreur s'est produite lors de la déconnexion",
-          variant: "destructive",
+          title: "Deconnecter avec success",
+          className:"bg-PrimaryColor text-white"
         });
+      })
+      .catch(() => {})
+      .finally(() => {
+        navigate("/login");
       });
   }
   return (

@@ -9,6 +9,8 @@ import EventDetails from "./pages/EventDetails";
 import MapPage from "./pages/MapPage";
 import CreatePostmobile from "./pages/CreatePostmobile";
 import ProfilePage from "./pages/ProfilePage";
+import CreateEvent from "./pages/CreateEvent";
+
 const Router = createBrowserRouter([
   {
     path: "/",
@@ -53,6 +55,12 @@ const Router = createBrowserRouter([
   {
     path: "/users/:id",
     element: <ProfilePage />,
+    path: "/createEvent",
+    element: <CreateEvent />,
+  },
+  {
+    path:"/createPost",
+    element:<CreatePostmobile/>
   },
   {
     path: "*",
