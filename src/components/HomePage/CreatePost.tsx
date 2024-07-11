@@ -20,79 +20,122 @@ const CreatePost = () => {
   const [loading, setLoading] = useState(false);
   const [postContent, setPostContent] = useState("");
   const [play] = useSound(likeSound);
-  const handlePost = () => {
+
+  function uploadWithImages(images: string[]) {
+    const formData = new FormData();
+    const timeStamp = generateTimestamp().toString();
+    const public_id = import.meta.env.VITE_CLOUDINARY_PUBLIC;
+    const api_key = import.meta.env.VITE_CLOUDINARY_APIKEY;
+    const api_secret = import.meta.env.VITE_CLOUDINARY_SECRETKEY;
+    const eager = "w_400,h_300,c_pad|w_260,h_200,c_crop";
+    formData.append("api_key", api_key);
+    formData.append("eager", eager);
+    formData.append("public_id", public_id);
+    formData.append("timestamp", timeStamp);
+    formData.append("preset", "squid-tech");
+    formData.append(
+      "signature",
+      generateSignature(
+        `eager=${eager}&public_id=${public_id}&timestamp=${timeStamp}${api_secret}`
+      )
+    );
+    formData.append("file", images[0]);
+    axios
+      .post(
+        `https://api.cloudinary.com/v1_1/${public_id}/image/upload`,
+        formData,
+        {
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+          },
+        }
+      )
+      .then((res) => {
+        const imageUrl = res.data.secure_url;
+
+        customAxios
+          .post(
+            "/posts",
+            {
+              content: postContent,
+              images: [imageUrl],
+              type: "post",
+            },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          )
+          .then((res) => {
+            play();
+            toast({
+              title: "Post publié avec succès",
+              description: "Votre post a été publié avec succès",
+              className:
+                "bg-green-500 text-white font-Outfit py-3 space-y-0 gap-0",
+            });
+            setImages([]);
+            setPostContent("");
+          })
+          .catch((error) => {
+            toast({
+              title: "Une erreur s'est produite",
+              description: error.message,
+              variant: "destructive",
+            });
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+        toast({
+          title: "Une erreur s'est produite",
+          description: error.message,
+          variant: "destructive",
+        });
+      });
+  }
+
+  const handlePost = async () => {
     setLoading(true);
     try {
-      const formData = new FormData();
-      const timeStamp = generateTimestamp().toString();
-      const public_id = import.meta.env.VITE_CLOUDINARY_PUBLIC;
-      const api_key = import.meta.env.VITE_CLOUDINARY_APIKEY;
-      const api_secret = import.meta.env.VITE_CLOUDINARY_SECRETKEY;
-      const eager = "w_400,h_300,c_pad|w_260,h_200,c_crop";
-      formData.append("api_key", api_key);
-      formData.append("eager", eager);
-      formData.append("public_id", public_id);
-      formData.append("timestamp", timeStamp);
-      formData.append("preset", "squid-tech");
-      formData.append(
-        "signature",
-        generateSignature(
-          `eager=${eager}&public_id=${public_id}&timestamp=${timeStamp}${api_secret}`
-        )
-      );
-      formData.append("file", images[0]);
-
-      // upload to cloudinary and to OZON backend
-
-      axios
-        .post(
-          `https://api.cloudinary.com/v1_1/${public_id}/image/upload`,
-          formData,
-          {
-            headers: {
-              "X-Requested-With": "XMLHttpRequest",
+      // call upload with images if images, else call the backend directly
+      if (images.length > 0) {
+        await uploadWithImages(images);
+      } else {
+        customAxios
+          .post(
+            "/posts",
+            {
+              content: postContent,
+              type: "post",
+              images: [],
             },
-          }
-        )
-        .then((res) => {
-          const imageUrl = res.data.secure_url;
-
-          customAxios
-            .post(
-              "/posts",
-              {
-                content: postContent,
-                images: [imageUrl],
-                type: "post",
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
               },
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              }
-            )
-            .then((res) => {
-              play();
-              toast({ title: "Post publié avec succès" });
-              setImages([]);
-              setPostContent("");
-            })
-            .catch((error) => {
-              toast({
-                title: "Une erreur s'est produite",
-                description: error.message,
-                variant: "destructive",
-              });
+            }
+          )
+          .then((res) => {
+            play();
+            toast({
+              title: "Post publié avec succès",
+              description: "Votre post a été publié avec succès",
+              className:
+                "bg-green-500 text-white font-Outfit py-3 space-y-0 gap-0",
             });
-        })
-        .catch((error) => {
-          console.log(error);
-          toast({
-            title: "Une erreur s'est produite",
-            description: error.message,
-            variant: "destructive",
+            setImages([]);
+            setPostContent("");
+          })
+          .catch((error) => {
+            toast({
+              title: "Une erreur s'est produite",
+              description: error.message,
+              variant: "destructive",
+            });
           });
-        });
+      }
     } catch (error) {
       toast({ title: "Une erreur s'est produite" });
     } finally {
