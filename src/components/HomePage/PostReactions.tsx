@@ -8,7 +8,9 @@ import { useState } from "react";
 import hred from "@/assets/HomePage/ReadHeart.svg";
 import axios from "@/config/axios";
 import useToken from "@/hooks/useToken";
+import { useToast } from "@/components/ui/use-toast";
 
+// add props interface
 interface Props {
   postInfo: {
     like_count: number;
@@ -21,16 +23,43 @@ interface Props {
   showComments: boolean;
   commentsCount: number;
 }
-
+// componnt begining
 const PostReactions = ({
   postInfo,
   setShowComments,
   showComments,
   commentsCount,
 }: Props) => {
+  const { toast } = useToast();
+
   const token = useToken();
   const [isLiked, setIsLiked] = useState(postInfo.liked);
   const [likeCount, setLikeCount] = useState(postInfo.like_count);
+
+  const handleRepost = () => {
+    axios
+      .post(
+        `/posts/${postInfo.postId}/repost`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        toast({
+          className: "bg-PrimaryColor text-white",
+          title: "Post Reposter ",
+          
+         
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   const handleClick = () => {
     const newLikeStatus = !isLiked;
@@ -85,10 +114,15 @@ const PostReactions = ({
           {/* <MessageCircle className="w-6 h-6 text-[#2D3A3A]" /> */}
           {commentsCount}
         </button>
-        <button className="flex flex-row justify-center items-center gap-1">
+        {/* repost component */}
+        <button
+          className="flex flex-row justify-center items-center gap-1"
+          onClick={handleRepost}
+        >
           <Repeat2 className="w-6 h-6 text-[#2D3A3A]" />
           {postInfo.reposts}
         </button>
+        {/* share component  */}
         <button>
           <SquareArrowOutUpRight className="w-6 h-6 text-[#2D3A3A]" />
         </button>
