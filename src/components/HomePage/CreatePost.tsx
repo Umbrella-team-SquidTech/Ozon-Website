@@ -9,12 +9,17 @@ import axios from "axios";
 import { generateSignature, generateTimestamp } from "@/utils/cloudinary";
 import useToken from "@/hooks/useToken";
 import { useToast } from "../ui/use-toast";
+import useSound from "use-sound";
+
+import likeSound from "@/assets/sounds/posting_effect.mp3";
+
 const CreatePost = () => {
   const [images, setImages] = useState<string[]>([]);
   const token = useToken();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [postContent, setPostContent] = useState("");
+  const [play] = useSound(likeSound);
   const handlePost = () => {
     setLoading(true);
     try {
@@ -67,6 +72,7 @@ const CreatePost = () => {
               }
             )
             .then((res) => {
+              play();
               toast({ title: "Post publié avec succès" });
             })
             .catch((error) => {

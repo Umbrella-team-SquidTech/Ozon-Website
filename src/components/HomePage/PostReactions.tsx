@@ -4,11 +4,13 @@ import {
   Repeat2,
   SquareArrowOutUpRight,
 } from "lucide-react";
-import {  useState } from "react";
+import { useState } from "react";
 import hred from "@/assets/HomePage/ReadHeart.svg";
 import axios from "@/config/axios";
 import useToken from "@/hooks/useToken";
+import useSound from "use-sound";
 
+import likeSound from "@/assets/sounds/like_effect.mp3";
 interface Props {
   postInfo: {
     like_count: number;
@@ -23,11 +25,14 @@ const PostReactions = ({ postInfo }: Props) => {
   const token = useToken();
   const [isLiked, setIsLiked] = useState(postInfo.liked);
   const [likeCount, setLikeCount] = useState(postInfo.like_count);
-
+  const [play] = useSound(likeSound);
   const handleClick = () => {
+    if (!isLiked) play();
     const newLikeStatus = !isLiked;
-    setIsLiked(newLikeStatus);
-
+    setIsLiked((prev) => !prev);
+    setLikeCount((prevCount) =>
+      newLikeStatus ? prevCount + 1 : prevCount - 1
+    );
     axios
       .post(
         `/posts/${postInfo.postId}/like`,
@@ -38,16 +43,9 @@ const PostReactions = ({ postInfo }: Props) => {
           },
         }
       )
-      .then((res) => {
-        console.log(res);
-        setLikeCount((prevCount) =>
-          newLikeStatus ? prevCount + 1 : prevCount - 1
-        );
-      })
+      .then((res) => {})
       .catch((err) => {
-        console.log(err);
-
-        setIsLiked(!newLikeStatus);
+        setIsLiked((prev) => !prev);
       });
   };
 
