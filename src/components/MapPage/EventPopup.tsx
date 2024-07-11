@@ -36,7 +36,7 @@ const EventPopup = ({
                 className="select-none self-start rounded-lg bg-gradient-to-tr from-[#11998E]  to-[#38EF7D] md:py-3 md:px-6 py-2 px-3 mt-2 md:mt-0 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-sm transition-all hover:shadow-md hover:shadow-gray-900/20 active:opacity-[0.85] "
                 onClick={handleRedirect}
               >
-                View Details
+                Voir les détails
               </button>
             </div>
           </div>
