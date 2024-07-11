@@ -172,6 +172,7 @@ const CreatePost = () => {
           onChange={(e) => {
             setPostContent(e.target.value);
           }}
+          value={postContent}
         />
       </div>
       <div className="pl-20 flex flex-row items-center justify-between">
