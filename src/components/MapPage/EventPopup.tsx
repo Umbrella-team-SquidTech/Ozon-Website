@@ -26,7 +26,6 @@ const EventPopup = ({
   console.log(event);
   return (
     <div className="w-full flex flex-row items-center justify-center  fixed top-24 md:top-auto md:bottom-2   ">
-        
       <Card className=" rounded-2xl flex flex-row  items-center w-3/4 md:w-1/2 py-2 md:py-0  ">
         <div className="w-3/4 h-full pl-2 flex flex-col justify-between">
           <h3 className=" bg-gradient-to-r from-[#11998E]  to-[#38EF7D] bg-clip-text text-transparent  md:text-xl font-[700] ">
@@ -45,9 +44,9 @@ const EventPopup = ({
           </div>
         </div>
         <div className="w-1/4 h-full relative">
-        <button onClick={onClose} className="absolute top-2 right-2">
+          <button onClick={onClose} className="absolute top-2 right-2">
             <X size={20} strokeWidth={2} className="text-white " />
-        </button>
+          </button>
           <img
             src={event.images[0] ? event.images[0] : ImageBackground}
             className="w-full h-full object-contain rounded-r-2xl"
@@ -66,7 +65,7 @@ export default EventPopup;
 <div className="flex flex-col space-y-2">
   <h2 className="text-xl font-bold">{event.name}</h2>
   <p>{event.description}</p>
-  <p><strong>Organizer:</strong> {event.organizer.name} {event.organizer.lastName}</p>
+  <p><strong>Organizer:</strong> {event.organizer.name} {event.organizer.last_name}</p>
   <div className="flex space-x-2">
     <button onClick={handleRedirect} className="bg-blue-500 text-white px-4 py-2 rounded">View Details</button>
     <button onClick={onClose} className="bg-gray-500 text-white px-4 py-2 rounded">Close</button>

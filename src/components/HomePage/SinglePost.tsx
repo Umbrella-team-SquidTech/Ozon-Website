@@ -2,6 +2,7 @@ import { Card } from "../ui/card";
 import PostReactions from "./PostReactions";
 import { useState } from "react";
 import PostCarousel from "./PostCarousel";
+import Comments from "./Comments";
 
 interface props {
   post: PostI;
@@ -12,6 +13,7 @@ const SinglePost = ({ post }: props) => {
   const toggleText = () => {
     setShowFullText(!showFullText);
   };
+
   const fullText = post.content;
   const truncatedText = fullText.substring(0, 72) + "....";
   //   add truncated text for the desktop view
@@ -20,18 +22,20 @@ const SinglePost = ({ post }: props) => {
     like_count: post.like_count,
     reposts: post.reposts,
     comments_count: post.comments_count,
+    postId: post.id,
+    liked: post.liked,
   };
   return (
     <Card className="mt-4 p-4">
       <div>
         <div className="flex flex-row gap-3">
           <img
-            src={post.author?.profilePic}
+            src={post.author?.profile_pic}
             className=" rounded-3xl size-12 flex justify-center items-center   "
           />
           <div>
             <h4 className=" font-Outfit text-TypoColor text-[18px] md:text-xl">
-              {post.author?.name} {post.author?.lastName}
+              {post.author?.name} {post.author?.last_name}
             </h4>
             <p className=" font-Outfit text-[#2D3A3A] text-[12px]">08:39 am</p>
           </div>
@@ -56,6 +60,7 @@ const SinglePost = ({ post }: props) => {
         <PostCarousel postGallery={post.images} />
       </div>
       <PostReactions postInfo={postInfo} />
+      <Comments postInfo={postInfo} />
     </Card>
   );
 };

@@ -94,8 +94,12 @@ export function RegisterMobileForm() {
               <p className=" text-red-400 text-xs">{errors.prenom?.message}</p>
             </div>
             <div className="space-y-1">
-              <Label htmlFor="lastName">Nom</Label>
-              <Input id="lastName" placeholder="Regueig" {...register("nom")} />
+              <Label htmlFor="last_name">Nom</Label>
+              <Input
+                id="last_name"
+                placeholder="Regueig"
+                {...register("nom")}
+              />
               <p className=" text-red-400 text-xs">{errors.nom?.message}</p>
             </div>
           </div>
