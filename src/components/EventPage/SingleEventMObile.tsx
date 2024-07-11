@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { CircleArrowRight, Share } from "lucide-react";
 import { useEffect, useState } from "react";
 import placeholderImage from "@/assets/placeholder.png";
+import { Link } from "react-router-dom";
 
 interface props {
   event: EventI;
@@ -49,6 +50,8 @@ const SingleEventMObile = ({ event }: props) => {
         </div>
       </div>
       <div className="w-full flex flex-col items-center pt-2 space-y-2">
+        
+        <Link to={`/events/${event.id}`} >
         <Button className=" space-x-2 bg-SecondaryColor hover:bg-PrimaryColor">
           <CircleArrowRight
             size={20}
@@ -56,7 +59,8 @@ const SingleEventMObile = ({ event }: props) => {
             className="hidden md:block"
           />
           Rejoindre l'évènement
-        </Button>
+          </Button>
+        </Link>
       </div>
     </Card>
   );

@@ -85,32 +85,32 @@ const EventDetails = () => {
     <RootLayout>
       <div className="mt-4 pt-0 md:px-20">
         <div className="">
-          <h1 className="font-Inter text-[#130E0A] font-[700] text-xl border-b-2 border-black w-fit">
+          <h1 className="font-Inter text-[#130E0A] font-[700] text-xl  w-fit px-4">
             Détails de l'évènement
           </h1>
-          <div className="py-8 px-4">
+          <div className="pt-2 pb-[70px] px-4">
             <div className="flex flex-col items-start w-full ">
-              <Carousel className="w-full cursor-pointer h-[30rem]">
-                <CarouselContent>
+              <Carousel className="w-full cursor-pointer rounded-lg ">
+                <CarouselContent className="rounded-lg">
                   {event?.images.length === 0 ? (
-                    <CarouselItem>
+                    <CarouselItem className="rounded-lg">
                       <img
                         src={placeholder}
-                        className="w-full self-center object-cover h-full"
+                        className="w-full self-center object-cover h-full rounded-lg"
                       />
                     </CarouselItem>
                   ) : null}
                   {event?.images?.map((image, index) => (
-                    <CarouselItem key={index} className="h-[30rem]">
+                    <CarouselItem key={index} className="h-[30rem] rounded-lg">
                       <img
                         src={image ? image : placeholder}
-                        className="w-full self-center object-cover h-full"
+                        className="w-full self-center object-cover h-full rounded-lg"
                       />
                     </CarouselItem>
                   ))}
                 </CarouselContent>
-                <CarouselPrevious className="absolute left-10 w-12 h-12 border-none" />
-                <CarouselNext className="absolute right-10 w-12 h-12 border-none" />
+                <CarouselPrevious className="absolute left-2 w-12 h-12 border-none" />
+                <CarouselNext className="absolute right-2 w-12 h-12 border-none" />
               </Carousel>
               <h3 className="text-TypoColor font-Inter  md:text-xl font-[700] pt-5 ">
                 {event?.name}
@@ -151,8 +151,8 @@ const EventDetails = () => {
                 </CardContent>
               </Card>
             </div>
-          </div>
-          <div className="flex flex-row gap-4 items-center justify-end py-4">
+         
+          <div className="flex flex-row gap-4 items-center justify-end py-4 ">
           <RWebShare
                 data={{
                   text: "Partager",
@@ -167,18 +167,19 @@ const EventDetails = () => {
             </RWebShare>
             {isParticipating ? (
               <Button className=" space-x-2 " variant="destructive" onClick={handleParticipation}>
-                <p className=" font-Inter font-[700] text-base hidden md:block"
+                <p className=" font-Inter font-[700] text-base  md:block"
                 >
                   Annuler la participation
                 </p>
               </Button>
             ) : (
               <Button className=" space-x-2 bg-SecondaryColor hover:bg-PrimaryColor" onClick={handleParticipation}>
-                <p className=" font-Inter font-[700] text-base hidden md:block">
+                <p className=" font-Inter font-[700] text-base  md:block">
                   Prendre une place
                 </p>
               </Button>
             )}
+          </div>
           </div>
         </div>
       </div>
