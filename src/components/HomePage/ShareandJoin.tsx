@@ -1,7 +1,11 @@
 import { Share } from "lucide-react";
 import { CircleArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import { RWebShare } from "react-web-share";
-const SHareandJoin = () => {
+interface prop {
+  suggestedEvent: EventI;
+}
+const SHareandJoin = ({suggestedEvent}:prop) => {
   return (
     <div
       className="  absolute bottom-3 right-2 md:left-2  flex md:flex-row  md:gap-4 bg-[#BAB8B859]/35 
@@ -28,7 +32,7 @@ const SHareandJoin = () => {
         </p>
       </button>
       </RWebShare> 
-      <button className="md:bg-white/35 flex flex-row items-center justify-center gap-2 rounded-xl py-1 md:px-3  px-1">
+      <Link to={`/events/${suggestedEvent?.id}`} className="md:bg-white/35 flex flex-row items-center justify-center gap-2 rounded-xl py-1 md:px-3  px-1">
         <CircleArrowRight
           size={20}
           strokeWidth={3}
@@ -42,7 +46,7 @@ const SHareandJoin = () => {
         <p className=" font-Inter font-[700] text-base hidden md:block">
           Voir les détails
         </p>
-      </button>
+      </Link>
     </div>
   );
 };
