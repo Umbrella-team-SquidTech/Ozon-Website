@@ -44,7 +44,7 @@ const SingleEvent = ({ event }: props) => {
               className="hidden md:block"
             />
             <p className=" font-Inter font-[700] text-base hidden md:block">
-              Rejoindre cet évènement
+              Voir les détails
             </p>
           </Button>
           <Button

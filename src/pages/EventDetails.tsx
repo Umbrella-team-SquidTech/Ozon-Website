@@ -25,7 +25,7 @@ const EventDetails = () => {
   const navigate = useNavigate();
   const [loadingEvent, setLoadingEvent] = useState(true);
   const [event, setEvent] = useState<EventI | null>(null);
-
+  const [isParticipating, setIsParticipating] = useState(false);
   useEffect(() => {
     setLoadingEvent(true);
     axios
@@ -33,6 +33,7 @@ const EventDetails = () => {
       .then((res) => {
         setLoadingEvent(false);
         setEvent(res.data.data);
+        setIsParticipating(res.data.data.user_is_participating);
       })
       .catch((err) => {
         toast({
@@ -48,7 +49,9 @@ const EventDetails = () => {
             variant: "destructive",
           });
         }
+        console.log(err);
       });
+      
   }, []);
 
   if (loadingEvent) {
@@ -57,6 +60,24 @@ const EventDetails = () => {
         <EventDetailsSkeleton />
       </RootLayout>
     );
+  }
+  const handleParticipation = () => {
+    axios.post(`/events/${id}/participate`, {}, { headers: { Authorization: `Bearer ${token}` } })
+    .then(() => {
+      setIsParticipating(!isParticipating);
+
+    })
+    .catch((err) => {
+      console.log(err);
+      if (err.response.status === 401) {
+        navigate("/login");
+        toast({
+          title: "Veuillez vous reconnecter",
+          description: "Votre session a expiré",
+          variant: "destructive",
+        });
+      }
+    });
   }
 
   return (
@@ -135,11 +156,20 @@ const EventDetails = () => {
               <Share size={20} strokeWidth={3} className="hidden md:block" />
               Partager
             </button>
-            <Button className=" space-x-2 bg-SecondaryColor hover:bg-PrimaryColor">
-              <p className=" font-Inter font-[700] text-base hidden md:block">
-                Prendre une place
-              </p>
-            </Button>
+            {isParticipating ? (
+              <Button className=" space-x-2 " variant="destructive" onClick={handleParticipation}>
+                <p className=" font-Inter font-[700] text-base hidden md:block"
+                >
+                  Annuler la participation
+                </p>
+              </Button>
+            ) : (
+              <Button className=" space-x-2 bg-SecondaryColor hover:bg-PrimaryColor" onClick={handleParticipation}>
+                <p className=" font-Inter font-[700] text-base hidden md:block">
+                  Prendre une place
+                </p>
+              </Button>
+            )}
           </div>
         </div>
       </div>
