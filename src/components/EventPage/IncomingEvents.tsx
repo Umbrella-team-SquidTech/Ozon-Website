@@ -34,7 +34,7 @@ const IncomingEvents = ({ events }: prop) => {
        </Carousel>
      </div>:
       <div className="flex flex-row justify-center items-center h-40">
-        <p className="text-[#130E0A] font-Outfit text-[700] text-xl">Aucun évènement à venir</p>
+        <p className="text-[#130E0A] font-Outfit text-[700] text-xl">Aucune participation</p>
         </div>}
         
       {/* mobile version */}
@@ -44,8 +44,8 @@ const IncomingEvents = ({ events }: prop) => {
             <SingleEventMObile event={event} key={i} />
           ))}
         </div>:
-        <div className="flex flex-row justify-center items-center h-40">
-          <p className="text-[#130E0A] font-Outfit text-[700] text-xl">Aucun évènement à venir</p>
+        <div className="flex flex-row justify-center items-center h-40 md:hidden">
+          <p className="text-[#130E0A] font-Outfit text-[700] text-xl">Aucune participation</p>
           </div>}
     </>
   );
