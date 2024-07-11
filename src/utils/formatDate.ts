@@ -17,3 +17,13 @@ export const compareDates = (date1: string, date2: string) => {
   const date2Obj = new Date(date2);
   return date1Obj.getTime() > date2Obj.getTime();
 };
+
+export const formatMemberSince = (date: string) => {
+  const dateObj = new Date(date);
+  const options = {
+    year: "numeric",
+    month: "long",
+  };
+  // @ts-expect-error ignored types
+  return dateObj.toLocaleDateString("fr", options);
+};
