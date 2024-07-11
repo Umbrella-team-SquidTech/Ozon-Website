@@ -34,7 +34,7 @@ const Selectors = (
       console.log(error);
     }
     )
-  }),[]
+  },[])
 
 
   const handleChange = (value:string) => {
