@@ -5,9 +5,10 @@ import RecoverPass from "./pages/RecoverPass";
 import ValidateRegisterPage from "./pages/ValidateRegisterPage";
 import HomePage from "./pages/HomePage";
 import Events from "./pages/EventsPage";
-import EventDetails from "./pages/EventDetails"; 
+import EventDetails from "./pages/EventDetails";
 import MapPage from "./pages/MapPage";
 import CreatePostmobile from "./pages/CreatePostmobile";
+import ProfilePage from "./pages/ProfilePage";
 const Router = createBrowserRouter([
   {
     path: "/",
@@ -30,8 +31,8 @@ const Router = createBrowserRouter([
     element: <ValidateRegisterPage />,
   },
   {
-      path:"/map",
-      element:<MapPage/>
+    path: "/map",
+    element: <MapPage />,
   },
   {
     path: "/home",
@@ -46,8 +47,12 @@ const Router = createBrowserRouter([
     element: <EventDetails />,
   },
   {
-    path:"/createPost",
-    element:<CreatePostmobile/>
+    path: "/createPost",
+    element: <CreatePostmobile />,
+  },
+  {
+    path: "/users/:id",
+    element: <ProfilePage />,
   },
   {
     path: "*",
