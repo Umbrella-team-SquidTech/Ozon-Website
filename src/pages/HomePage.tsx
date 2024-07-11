@@ -75,9 +75,11 @@ export default function HomePage() {
       <div className="p-5 pt-0 md:px-20">
         <SuggestedEvent />
         <CreatePost />
-        {posts.map((post: PostI) => (
-          <SinglePost key={post.id} post={post} />
-        ))}
+        <div className="pb-[70px] md:pb-0">
+          {posts.map((post: PostI) => (
+            <SinglePost key={post.id} post={post} />
+          ))}
+        </div>
       </div>
     </RootLayout>
   );

@@ -13,9 +13,11 @@ interface props {
     liked: boolean;
   },
   comments: CommentI[],
-  setComments: (comments: CommentI[]) => void;
+  setComments: (comments: CommentI[]) => void,
+  setCommentsCount: (count: number) => void,
+  commentsCount: number,
 }
-const Comments = ({ postInfo,comments,setComments }: props) => {
+const Comments = ({ postInfo,comments,setComments,setCommentsCount,commentsCount }: props) => {
   const token = useToken();
  
 
@@ -43,6 +45,8 @@ const Comments = ({ postInfo,comments,setComments }: props) => {
         ))}
       </div>
       <CommentInput
+      commentsCount={commentsCount}
+      setCommentsCount={setCommentsCount}
       setComments={setComments}
       comments={comments}
       id={postInfo.postId}

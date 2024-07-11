@@ -31,6 +31,7 @@ const SinglePost = ({ post }: props) => {
   };
   const token = useToken();
   const [comments, setComments] = useState<CommentI[]>([]);
+  const [commentsCount, setCommentsCount] = useState(post.comments_count);
   
 useEffect(() => {
   axios
@@ -81,8 +82,8 @@ useEffect(() => {
         </p>
         <PostCarousel postGallery={post.images} />
       </div>
-      <PostReactions postInfo={postInfo} setShowComments={setShowComments} showComments={showComments} />
-      {showComments && <Comments postInfo={postInfo} comments={comments} setComments={setComments}  />}
+      <PostReactions postInfo={postInfo} setShowComments={setShowComments} showComments={showComments} commentsCount={commentsCount} />
+      {showComments && <Comments postInfo={postInfo} comments={comments} setComments={setComments} setCommentsCount={setCommentsCount} commentsCount={commentsCount}/>}
     </Card>
   );
 };

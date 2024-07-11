@@ -7,9 +7,11 @@ import { useState } from "react";
 interface props {
   setComments: (comments: CommentI[]) => void;
   comments: CommentI[];
-  id: string;
+  id: string,
+  setCommentsCount: (count: number) => void,
+  commentsCount: number,
 }
-const CommentInput = ({ setComments, comments ,id}: props) => {
+const CommentInput = ({ setComments, comments ,id,setCommentsCount,commentsCount}: props) => {
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const [commentContent, setCommentContent] = useState("");
   const handlSubmit = () => {
@@ -27,6 +29,7 @@ const CommentInput = ({ setComments, comments ,id}: props) => {
       .then((res) => {
         setComments([...comments, res.data.data]);
         setCommentContent("");
+        setCommentsCount(commentsCount + 1);
       })
       .catch((err) => {
         console.log(err);
