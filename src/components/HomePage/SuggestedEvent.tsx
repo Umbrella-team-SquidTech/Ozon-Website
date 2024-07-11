@@ -48,7 +48,7 @@ const SuggestedEvent = () => {
           alt="eventBackground"
           className="rounded-r-xl w-full h-full object-cover  "
         />
-        <ShareandJoin suggestedEvent={suggestedEvent}/>
+        {suggestedEvent && <ShareandJoin suggestedEvent={suggestedEvent}/>}
       </div>
     </div>
   );
