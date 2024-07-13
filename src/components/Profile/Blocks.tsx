@@ -33,7 +33,7 @@ const Blocks = ({ user }: { user: UserI }) => {
 
   return (
     <div className="w-screen flex justify-center items-center mt-10">
-      <div className="w-10/12 grid grid-cols-3 gap-10">
+      <div className="w-10/12 grid grid-rows-3 md:grid-cols-3 md:grid-rows-1 gap-10">
         <div className=" rounded-md shadow ">
           <Achievements />
         </div>

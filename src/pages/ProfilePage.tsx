@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import customAxios from "@/config/axios";
 import { useToast } from "@/components/ui/use-toast";
 import UpdateProfile from "@/components/Profile/UpdateProfile";
+import LoadingAnimation from "@/components/LoadingAnimation";
 const ProfilePage = () => {
   const token = useToken();
   const [user, setUser] = useState<UserI | null>(null);
@@ -37,9 +38,7 @@ const ProfilePage = () => {
   if (isLoading) {
     return (
       <RootLayout>
-        <div className="w-screen h-screen flex justify-center items-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-[#11998E]"></div>
-        </div>
+        <LoadingAnimation />
       </RootLayout>
     );
   }
