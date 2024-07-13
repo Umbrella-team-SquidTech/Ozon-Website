@@ -9,7 +9,7 @@ const UpdateProfile = ({ user }: { user: UserI | null }) => {
   console.log(connectedUser?.id === user?.id);
 
   return connectedUser?.id === user?.id ? (
-    <div className="w-screen flex justify-center items-center py-10">
+    <div className="w-screen flex justify-center items-center md:py-10 pb-[75px]">
       <div className="w-10/12 flex flex-col justify-center items-center">
         <div className="w-full justify-start">
           <h1 className=" text-2xl font-bold border-b-2 py-2 w-auto">
@@ -56,7 +56,7 @@ const UpdateProfile = ({ user }: { user: UserI | null }) => {
           </div>
           {/* Button for updating profile */}
           <div className="w-full flex justify-end mt-4">
-            <button className=" bg-PrimaryColor border-2 border-primaryColor hover:bg-white hover:text-PrimaryColor text-white font-bold py-2 px-4 rounded">
+            <button className="border-none bg-PrimaryColor border-2 border-primaryColor hover:bg-white hover:text-PrimaryColor text-white font-bold py-2 px-4 rounded">
               Enregistrer
             </button>
           </div>
