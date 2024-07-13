@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 const Tip = ({ post }: { post: PostI | null }) => {
-  console.log(post);
+ 
 
   return (
     <div className="w-full flex justify-center items-center relative mt-4">

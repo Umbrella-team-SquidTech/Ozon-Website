@@ -6,7 +6,7 @@ export const formatDate = (dateString: string) => {
     day: "numeric",
     hour: "2-digit",
     minute: "2-digit",
-    second: "2-digit",
+    // second: "2-digit",
   };
   // @ts-expect-error ignored types
   return date.toLocaleDateString("fr", options);
