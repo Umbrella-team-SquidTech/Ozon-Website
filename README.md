@@ -1,23 +1,26 @@
-# Squid-Tech-Front
+# Ozon
 
-Ce dépôt contient le code source du frontend de l'application Squid-Tech, développé avec ReactJS et diverses bibliothèques modernes pour assurer une expérience utilisateur optimale.
+Une WebApplication pour aider les communautés à gérer leurs initiatives écologiques locales.
 
-## Fonctionnalite
-### -Gestion des posts:
--creer des posts
--liker commenter reposter partager des posts 
--voir les posts
--creer des posts
+# Fonctionnalite
+## Gestion des posts:
+**-creer des posts (possibilté d'ajouter des photos)**  
+**-liker commenter reposter partager des posts**  
+**-voir les posts**  
+**-creer des posts**  
+## Gestions des evenements:
+**-creer des evenements**  
+**-participer a des evenements**  
+**-annuler la  participation a des evenements**  
+**-voir les evenements disponibles sur la map interactive**  
+## Suivie de l'impact ecologique
+**-regarder tous les statistiques sur les evenements en fonction de temps et d'unité.**  
+## visite des profiles  
+**-visiter les profiles des utilisateurs**  
+**-regarder leur badges et leur contribution**  
+**-regarder leur posts**  
 
-### -Gestions des evenements:
--creer des evenements
--participer a des evenements
--annuler la  participation a des evenements
-### -Visite de l'impact ecologique
-### -visite des profiles
-
-### -Gestion des posts
-## Technologies Utilisées
+### Technologies Utilisées
 
 - **ReactJS** : Bibliothèque JavaScript pour construire des interfaces utilisateur.
 - **TailwindCSS** : Cadre de travail CSS utilitaire pour un développement rapide et flexible.
@@ -35,6 +38,11 @@ Ce dépôt contient le code source du frontend de l'application Squid-Tech, dév
 - **react-map-gl** : Composants React pour intégrer Mapbox GL dans les applications React.
 - **lucide-react** : Composants d'icônes React basés sur Lucide.
 
+## Demo:
+**vous pouvez visiter la demo du siteweb:  
+par [**Ici**](https://squidtech-ozon.vercel.app/)  
+email:admin@example.com  
+password:password  
 
 ## Installation
 
