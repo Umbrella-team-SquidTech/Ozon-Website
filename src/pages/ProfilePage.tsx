@@ -45,7 +45,7 @@ const ProfilePage = () => {
 
   return (
     <RootLayout>
-      <div className=" overflow-x-hidden">
+      <div className=" overflow-x-hidden min-h-screen pb-[75px]">
         <ProfileHeader user={user as UserI} />
         <Blocks user={user as UserI} />
         <UpdateProfile user={user} />

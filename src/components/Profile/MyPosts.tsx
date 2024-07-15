@@ -2,7 +2,7 @@ import PlaceHolder from "@/assets/placeholder.png";
 const MyPosts = ({ posts }: { posts: PostI[] }) => {
   return (
     <div className="px-4 py-4 flex flex-col gap-2 h-full">
-      <div className=" font-bold text-2xl">Mes Posts</div>
+      <div className=" font-bold text-2xl">Posts</div>
       <div className="h-full flex gap-2 mt">
         <div className="flex-1  flex flex-col gap-2 overflow-hidden">
           <div className="flex-1  flex gap-2">
