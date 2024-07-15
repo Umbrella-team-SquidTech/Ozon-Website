@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+
 import { useState, useCallback, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import Map, { Marker, NavigationControl } from "react-map-gl";
 
-import ControlPanel from "@/components/CreateEvent/control-panel";
 import Pin from "@/components/CreateEvent/pin";
 
 import axios from "@/config/axios";

@@ -1,5 +1,3 @@
-import PostImage from "@/assets/HomePage/PostImage.png";
-
 import {
   Carousel,
   CarouselContent,

@@ -1,6 +1,6 @@
 import axios from "@/config/axios";
 import useToken from "@/hooks/useToken";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import SingleComment from "./SingleComment";
 import CommentInput from "./CommentInput";
 
@@ -11,15 +11,20 @@ interface props {
     comments_count: number;
     postId: string;
     liked: boolean;
-  },
-  comments: CommentI[],
-  setComments: (comments: CommentI[]) => void,
-  setCommentsCount: (count: number) => void,
-  commentsCount: number,
+  };
+  comments: CommentI[];
+  setComments: (comments: CommentI[]) => void;
+  setCommentsCount: (count: number) => void;
+  commentsCount: number;
 }
-const Comments = ({ postInfo,comments,setComments,setCommentsCount,commentsCount }: props) => {
+const Comments = ({
+  postInfo,
+  comments,
+  setComments,
+  setCommentsCount,
+  commentsCount,
+}: props) => {
   const token = useToken();
- 
 
   useEffect(() => {
     axios
@@ -29,13 +34,12 @@ const Comments = ({ postInfo,comments,setComments,setCommentsCount,commentsCount
         },
       })
       .then((res) => {
-       
         setComments(res.data.data);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [postInfo.postId, token,setComments]);
+  }, [postInfo.postId, token, setComments]);
   return (
     <div>
       <h1>Comments</h1>
@@ -45,11 +49,11 @@ const Comments = ({ postInfo,comments,setComments,setCommentsCount,commentsCount
         ))}
       </div>
       <CommentInput
-      commentsCount={commentsCount}
-      setCommentsCount={setCommentsCount}
-      setComments={setComments}
-      comments={comments}
-      id={postInfo.postId}
+        commentsCount={commentsCount}
+        setCommentsCount={setCommentsCount}
+        setComments={setComments}
+        comments={comments}
+        id={postInfo.postId}
       />
     </div>
   );

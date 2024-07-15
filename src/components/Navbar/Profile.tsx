@@ -1,4 +1,3 @@
-import UserProfile from "@/assets/UserProfile.png";
 import {
   Popover,
   PopoverContent,

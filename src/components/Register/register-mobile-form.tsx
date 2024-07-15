@@ -12,12 +12,10 @@ import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import axios from "@/config/axios";
 import { useNavigate } from "react-router-dom";
-import useUserStore from "@/stores/useUser";
 export function RegisterMobileForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { setUser } = useUserStore();
   const { toast } = useToast();
   const navigate = useNavigate();
   const {

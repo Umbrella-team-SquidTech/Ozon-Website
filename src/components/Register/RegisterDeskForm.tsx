@@ -52,7 +52,7 @@ export default function RegisterDeskForm() {
               "bg-green-500 text-white font-Outfit py-3 space-y-0 gap-0",
           });
         })
-        .catch((err) => {
+        .catch((_err) => {
           toast({
             title: "Erreur",
             description: "Une erreur s'est produite lors de l'inscription",
