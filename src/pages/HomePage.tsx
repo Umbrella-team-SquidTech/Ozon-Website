@@ -17,6 +17,7 @@ import DayTip from "@/components/HomePage/DayTip";
 
 export default function HomePage() {
   const token = useToken();
+  // @ts-expect-error unused variable
   const { user, isLoading, error } = useUser(token);
   const { toast } = useToast();
   const [loadingPosts, setLoadinPosts] = useState(true);

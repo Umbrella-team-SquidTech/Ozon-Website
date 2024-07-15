@@ -1,6 +1,6 @@
 import axios from "@/config/axios";
 import { Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SearchResult from "../SearchResult";
 
 export default function SearchBox() {
@@ -8,8 +8,6 @@ export default function SearchBox() {
   const [events, setEvents] = useState<EventI[]>([]);
   const [users, setUsers] = useState<UserI[]>([]);
   const [loading, setLoading] = useState(false);
-
-
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;

@@ -40,7 +40,6 @@ const PostReactions = ({
   const [likeCount, setLikeCount] = useState(postInfo.like_count);
   const [play] = useSound(likeSound);
 
-
   const handleRepost = () => {
     play();
     axios
@@ -82,8 +81,8 @@ const PostReactions = ({
           },
         }
       )
-      .then((res) => {})
-      .catch((err) => {
+      .then((_res) => {})
+      .catch((_err) => {
         setIsLiked((prev) => !prev);
       });
   };
@@ -124,18 +123,16 @@ const PostReactions = ({
         </button>
         {/* share component  */}
         <RWebShare
-                data={{
-                    text: "Web Share - GfG",
-                    url: "http://localhost:3000",
-                    title: "GfG",
-                }}
-                onClick={() =>
-                    console.log("shared successfully!")
-                }
-            >
-        <button>
-          <SquareArrowOutUpRight className="w-6 h-6 text-[#2D3A3A] hover:text-blue-400" />
-        </button>
+          data={{
+            text: "Web Share - GfG",
+            url: "http://localhost:3000",
+            title: "GfG",
+          }}
+          onClick={() => console.log("shared successfully!")}
+        >
+          <button>
+            <SquareArrowOutUpRight className="w-6 h-6 text-[#2D3A3A] hover:text-blue-400" />
+          </button>
         </RWebShare>
       </div>
     </div>

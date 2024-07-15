@@ -1,7 +1,7 @@
 import CheckIcon from "@/assets/checkCircle.svg";
 import { Card } from "../ui/card";
 import { Button } from "../ui/button";
-import { CircleArrowRight, Share } from "lucide-react";
+import { CircleArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import placeholderImage from "@/assets/placeholder.png";
 import { Link } from "react-router-dom";
@@ -13,7 +13,7 @@ interface props {
 
 const SingleEventMObile = ({ event }: props) => {
   const [width] = useState(window.innerWidth);
-  const [breakpoint, setBreakpoint] = useState("");
+  const [_breakpoint, setBreakpoint] = useState("");
   useEffect(() => {
     const width = window.innerWidth;
     setBreakpoint(width + "px");

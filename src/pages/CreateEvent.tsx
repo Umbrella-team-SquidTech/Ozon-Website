@@ -46,7 +46,7 @@ const CreateEvent = () => {
   });
   const { toast } = useToast();
   const token = useToken();
-  const [loading, setLoading] = useState(false);
+  const [_loading, setLoading] = useState(false);
   function uploadWithImages(
     images: string[],
     formValues: z.infer<typeof formSchema>
@@ -104,7 +104,7 @@ const CreateEvent = () => {
               },
             }
           )
-          .then((res) => {
+          .then((_res) => {
             toast({
               title: "Evenement publié avec succès",
               description: "Votre Evenement a été publié avec succès",
@@ -338,7 +338,7 @@ const CreateEvent = () => {
                               <SelectValue placeholder="Select event type" />
                             </SelectTrigger>
                             <SelectContent>
-                              {eventTypes?.map((t: EventTypeI, i) => {
+                              {eventTypes?.map((t: EventTypeI) => {
                                 return (
                                   <SelectItem value={t.id.toString()}>
                                     {t.name}

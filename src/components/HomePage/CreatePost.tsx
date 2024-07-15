@@ -10,13 +10,12 @@ import useToken from "@/hooks/useToken";
 import { useToast } from "../ui/use-toast";
 import useSound from "use-sound";
 import likeSound from "@/assets/sounds/posting_effect.mp3";
-import { Label } from "../ui/label";
 import useUser from "@/hooks/useUser";
 
 const CreatePost = () => {
   const [images, setImages] = useState<string[]>([]);
   const { toast } = useToast();
-  const [loading, setLoading] = useState(false);
+  const [_loading, setLoading] = useState(false);
   const [postContent, setPostContent] = useState("");
   const [postType, setPostType] = useState(false);
   const [play] = useSound(likeSound);
@@ -71,7 +70,7 @@ const CreatePost = () => {
               },
             }
           )
-          .then((res) => {
+          .then((_res) => {
             play();
             toast({
               title: "Post publié avec succès",

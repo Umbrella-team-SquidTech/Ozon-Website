@@ -3,22 +3,23 @@
 Une WebApplication pour aider les communautés à gérer leurs initiatives écologiques locales.
 
 # Fonctionnalite
+
 ## Gestion des posts:
-**-creer des posts (possibilté d'ajouter des photos)**  
-**-liker commenter reposter partager des posts**  
-**-voir les posts**  
-**-creer des posts**  
+**-Creer des posts (possibilté d'ajouter des photos)**  
+**-Liker commenter reposter partager des posts**  
+**-Voir les posts**  
+**-Creer des posts**  
 ## Gestions des evenements:
-**-creer des evenements**  
-**-participer a des evenements**  
-**-annuler la  participation a des evenements**  
-**-voir les evenements disponibles sur la map interactive**  
+**-Creer des evenements**  
+**-Participer a des evenements**  
+**-Annuler la  participation a des evenements**  
+**-Voir les evenements disponibles sur la map interactive**  
 ## Suivie de l'impact ecologique
-**-regarder tous les statistiques sur les evenements en fonction de temps et d'unité.**  
-## visite des profiles  
-**-visiter les profiles des utilisateurs**  
-**-regarder leur badges et leur contribution**  
-**-regarder leur posts**  
+**-Regarder tous les statistiques sur les evenements en fonction de temps et d'unité.**  
+## Visite des profiles  
+**-Visiter les profiles des utilisateurs**  
+**-Regarder leur badges et leur contribution**  
+**-Regarder leur posts**  
 
 ### Technologies Utilisées
 
@@ -39,10 +40,12 @@ Une WebApplication pour aider les communautés à gérer leurs initiatives écol
 - **lucide-react** : Composants d'icônes React basés sur Lucide.
 
 ## Demo:
+
 **vous pouvez visiter la demo du siteweb:  
 par [**Ici**](https://squidtech-ozon.vercel.app/)  
 email:admin@example.com  
 password:password  
+
 
 ## Installation
 
@@ -61,12 +64,14 @@ password:password
    ```
 
 2. **Lancer le server node**
+
    ```bash
    npm i
    npm run dev
    ```
 
    ### Pour lancer les tests:
+
    ```bash
    npm run test
    ```

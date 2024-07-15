@@ -2,10 +2,7 @@
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import imageUpload from "@/assets/HomePage/imageComposition.svg";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import formSchema from "@/schemas/CreatePostSchema";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 type Inputs = {
@@ -21,7 +18,7 @@ const PostForm = () => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  function onSubmit(values: Inputs) {
+  function onSubmit(_values: Inputs) {
     // REQUEST API
     // TODO: search for handling image submissions
 
